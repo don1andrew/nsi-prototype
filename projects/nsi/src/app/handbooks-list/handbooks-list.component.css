@@ -1,0 +1,39 @@
+.handbooks-list {
+  background: #fff;
+  width: 500px;
+  /*height: 300px;*/
+  margin: 230px auto 0;
+}
+.handbooks-list > div {
+  position: relative;
+  border-bottom: 1px solid  #a6a6a6;
+  padding: 20px 0 20px 40px;
+}
+.handbooks-list > div:focus {
+  outline: none;
+}
+.handbooks-list > div:first-child {
+  font-weight: bold;
+  cursor: default;
+  background: #dfe2e5;
+}
+.handbooks-list > div:not(:first-child):hover {
+  cursor: pointer;
+  font-weight: bold;
+}
+.handbooks-list > div:not(:first-child):hover::before {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 10px;
+  left: 0;
+  top: 0;
+  background: #333;
+}
+.date {
+  position: absolute;
+  bottom: 20px;
+  right: 40px;
+  color: var(--note-gray);
+  text-decoration: underline;
+}

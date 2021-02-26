@@ -1,0 +1,17 @@
+<header class="header">
+  <img class="logo" src="assets/img/home-logo.svg">
+  <div class="user-status">
+    <div><div>Пользователь</div>hardcode operator</div>
+    <div><div>Полномочия</div>hardcode Корректировщик справочников</div>
+  </div>
+  <a class="main-nav-button button" routerLink="">Сменить роль</a>
+</header>
+<div class="handbooks-list">
+  <div>Локальные справочники</div>
+  <div>Справочник типов НФО</div>
+  <div>Справочник видов нарушений</div>
+  <div>Справочник мер воздействия</div>
+  <div routerLink="/insurance_types">Справочник видов страхования</div>
+  <div>Справочник органов инициаторов</div>
+</div>
+<p class="date">{{dt.toLocaleDateString()}}</p>

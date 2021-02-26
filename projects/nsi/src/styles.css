@@ -1,1 +1,135 @@
 /* You can add global styles to this file, and also import other style files */
+/*@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');*/
+:root {
+  --soft-grayblue: #DFE2E5;
+  --grayblue: #9FA5AD;
+  --note-gray: #a6a6a6;
+  --icon-dropdown: url('./icons/dropdown.svg');
+  --icon-edit: url('./icons/edit.svg');
+  --icon-add: url('./icons/add.svg');
+  --icon-submit: url('./icons/submit.svg');
+  --icon-link: url('./icons/link.svg');
+  --icon-remove: url('./icons/remove.svg');
+  --icon-attr: url('./icons/attr.svg');
+  --icon-date: url('./icons/date.svg');
+  --icon-add-field: url('./icons/add_field.svg');
+  --icon-history: url('./icons/history.svg');
+  --icon-search: url('./icons/search.svg');
+  --icon-right: url('./icons/right.svg');
+  --icon-top-right: url('./icons/top_right.svg');
+  /*--icon-: url('icons/.svg');*/
+
+  /*background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 7 8'%3e%3cpath stroke='%23000' d='M1,2h5m0,2h-5m0,2h5' stroke-width='1' fill='%23fff'/%3e%3c/svg%3e");*/
+
+}
+@font-face {
+  font-family: "Roboto";
+  font-weight: normal;
+  src: url(./fonts/Roboto/Roboto-Regular.ttf);
+  /*  	url('https://fonts.googleapis.com/css2?family=Roboto&display=swap') format("woff2"); */
+}
+@font-face {
+  font-family: "Roboto";
+  font-weight: bold;
+  src: url(./fonts/Roboto/Roboto-Bold.ttf);
+  /*  	url('https://fonts.googleapis.com/css2?family=Roboto&display=swap') format("woff2"); */
+}
+html, button, a {
+  font-size: 14px;
+  font-weight: 500;
+  font-family: Roboto;/*, sans-serif;*/
+  color: #000;
+}
+p {
+  margin: 0;
+}
+body {
+  /*margin: 0;*/
+}
+.header {
+  position: absolute;
+  /*width: 1440px;*/
+  height: 80px;
+  left: 0px;
+  top: 0px;
+  right: 0px;
+
+  background: var(--soft-grayblue);
+  box-shadow: 0px -2px 10px 5px #CFCFCF;
+}
+div {
+  /*background: #454522;*/
+}
+button:focus,
+select {
+  outline: none;
+}
+.logo {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  /*margin: auto;*/
+  left: 30px;
+  fill: #000;
+  filter: drop-shadow(-1px 2px 2px rgba(0, 0, 0, 0.35));
+}
+.button {
+  background-color: #fff;
+  border: 1px solid #333;
+  box-shadow: 0 2px 4px #999;
+  color: #333;
+  box-sizing: border-box;
+  padding: 1px 6px;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: bold;
+  cursor: pointer;
+}
+.main-nav-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  width: 120px;
+  height: 50px;
+  right: 30px;
+}
+.main-nav-button:hover {
+  background-color: var(--grayblue);
+  color: #fff;
+}
+.user-status {
+  position: absolute;
+  top: 12px;
+  right: 160px;
+  /*background-color: #37d;*/
+}
+.user-status > div {
+  display: inline-block;
+  vertical-align: top;
+  /*background: #933;*/
+  /*border: 1px solid black;*/
+  width: 170px;
+  font-weight: bold;
+}
+.user-status > div > div {
+  font-weight: normal;
+  border-bottom: 1px solid black;
+  margin: 0 20px 3px 0;
+}
+.dropdown {
+  display: block;
+  background-image: var(--icon-dropdown);
+  background-repeat: no-repeat;
+  background-position: calc(100% - 12px) center;
+  appearance: none;
+  border: 1px solid black;
+  box-shadow: 0 2px 4px #999;
+  font-size: inherit;
+  font-family: inherit;
+  padding: 0 20px;
+}
