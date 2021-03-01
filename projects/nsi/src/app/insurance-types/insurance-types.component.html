@@ -39,7 +39,7 @@
     <a class="filter-button button" href="">Очистить</a>
   </div>
   <div>
-    <input type="text" name="" placeholder="ПОИСК" class="search">
+    <input (keydown.enter)="onSearchEnter($event)" #searchInput type="text" name="" placeholder="ПОИСК" class="search">
   </div>
 </div>
 <a (click)="debug()" class="action-button add"></a>
@@ -73,11 +73,12 @@
   </tbody>
 </table>
 <div class="table-nav">
+  <p>{{ info }}</p>
   <a (click)="onTableNavigation('top-left')" class="action-button top-left"></a>
   <a (click)="onTableNavigation('left')" class="action-button left"></a>
   <input (keydown.enter)="onTableNavigation('input', currentPage.value)" type="text" name="" [value]="tableNav.current" class="" #currentPage>
   <p>/</p>
-  <input type="text" name="" placeholder="3" class="" disabled>
+  <input type="text" name="" [placeholder]="tableNav.max" class="" disabled>
   <a (click)="onTableNavigation('right')" class="action-button right"></a>
   <a (click)="onTableNavigation('top-right')" class="action-button top-right"></a>
 </div>

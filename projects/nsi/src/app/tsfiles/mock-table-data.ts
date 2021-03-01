@@ -17,6 +17,8 @@ export class HandbookData {
     }
 
     public static getData(rows: number): IHandbookRow[] {
+        // let _data: IHandbookRow[] = [];
+        this.data = [];
         for (let i = 0; i < rows; i++) {
             this.data.push({
                 fullname: `Запись справочника №${i+1}`,
@@ -27,7 +29,8 @@ export class HandbookData {
                 codeEndDate: this.getMockDate(),
             });
             
-        }        
+        }
+        // this.data = _data;   
         return this.data;
     }
 }
