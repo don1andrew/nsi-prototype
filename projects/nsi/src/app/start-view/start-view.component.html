@@ -5,12 +5,12 @@
 <h2>Учет применения мер воздействия к некредитным организациям</h2>
 <p>Приветствую, <strong>{{currentUser}}</strong>!</p>
 <p>Ваши полномочия:</p>
-<select class="dropdown">
+<select class="dropdown" #refDropdown>
   <option>Корректировщик справочников</option>
   <option>Опция №2</option>
   <option>Другая роль</option>
 </select>
-<a class="main-button button" routerLink="list">Начать работу</a>
+<a class="main-button button" (click)="onStartButton(refDropdown.value)" routerLink="list">Начать работу</a>
 
 <footer>
   <a href="assets/img/home-logo.svg" download="logo">Скачать руководство пользователя</a>

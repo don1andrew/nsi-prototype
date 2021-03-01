@@ -1,8 +1,8 @@
 <header class="header">
   <img class="logo" src="assets/img/home-logo.svg">
   <div class="user-status">
-    <div><div>Пользователь</div>operator</div>
-    <div><div>Полномочия</div>Корректировщик справочников</div>
+    <div><div>Пользователь</div>{{ currentUser }}</div>
+    <div><div>Полномочия</div>{{ currentRole }}</div>
   </div>
   <a class="main-nav-button button" routerLink="/list">К списку справочников</a>
 </header>
@@ -42,7 +42,7 @@
     <input type="text" name="" placeholder="ПОИСК" class="search">
   </div>
 </div>
-<a href="" class="action-button add"></a>
+<a (click)="debug()" class="action-button add"></a>
 <a href="" class="action-button submit"></a>
 <a href="" class="action-button link"></a>
 <a href="" class="action-button remove"></a>
@@ -62,94 +62,22 @@
   </tr>
   </thead>
   <tbody>
-  <tr>
-    <td>Наименование записи в справочнике</td>
-    <td>Опубликованная</td>
-    <td>IC_PROP</td>
-    <td>15.05.2005</td>
-    <td>15.05.2005</td>
-    <td>15.05.2005</td>
-  </tr>
-  <tr>
-    <td>Наименование записи в справочнике</td>
-    <td>Опубликованная</td>
-    <td>IC_CTR_OP</td>
-    <td>15.05.2005</td>
-    <td>15.05.2005</td>
-    <td>15.05.2005</td>
-  </tr>
-  <tr>
-    <td>Наименование записи в справочнике</td>
-    <td>Опубликованная</td>
-    <td>IC_PROP</td>
-    <td>15.05.2005</td>
-    <td>15.05.2005</td>
-    <td>15.05.2005</td>
-  </tr>
-  <tr>
-    <td>Наименование записи в справочнике</td>
-    <td>Опубликованная</td>
-    <td>IC_PROP</td>
-    <td>15.05.2005</td>
-    <td>15.05.2005</td>
-    <td>15.05.2005</td>
-  </tr>
-  <tr>
-    <td>Наименование записи в справочнике</td>
-    <td>Опубликованная</td>
-    <td>IC_PROP</td>
-    <td>15.05.2005</td>
-    <td>15.05.2005</td>
-    <td>15.05.2005</td>
-  </tr>
-  <tr>
-    <td>Наименование записи в справочнике</td>
-    <td>Опубликованная</td>
-    <td>IC_PROP</td>
-    <td>15.05.2005</td>
-    <td>15.05.2005</td>
-    <td>15.05.2005</td>
-  </tr>
-  <tr>
-    <td>Наименование записи в справочнике</td>
-    <td>Опубликованная</td>
-    <td>IC_PROP</td>
-    <td>15.05.2005</td>
-    <td>15.05.2005</td>
-    <td>15.05.2005</td>
-  </tr>
-  <tr>
-    <td>Наименование записи в справочнике</td>
-    <td>Опубликованная</td>
-    <td>IC_PROP</td>
-    <td>15.05.2005</td>
-    <td>15.05.2005</td>
-    <td>15.05.2005</td>
-  </tr>
-  <tr>
-    <td>Наименование записи в справочнике</td>
-    <td>Опубликованная</td>
-    <td>IC_PROP</td>
-    <td>15.05.2005</td>
-    <td>15.05.2005</td>
-    <td>15.05.2005</td>
-  </tr>
-  <tr>
-    <td>Наименование записи в справочнике</td>
-    <td>Опубликованная</td>
-    <td>IC_PROP</td>
-    <td>15.05.2005</td>
-    <td>15.05.2005</td>
-    <td>15.05.2005</td>
-  </tr>
+    <tr *ngFor="let td of displayData">
+      <td>{{td.fullname}}</td>
+      <td>{{td.recordStatus}}</td>
+      <td>{{td.code}}</td>
+      <td>{{td.recordStartDate}}</td>
+      <td>{{td.recordEndDate}}</td>
+      <td>{{td.codeEndDate}}</td>
+    </tr>
   </tbody>
 </table>
 <div class="table-nav">
-  <a href="" class="action-button top-left"></a>
-  <a href="" class="action-button left"></a>
-  <input type="text" name="" value="1" class="">
+  <a (click)="onTableNavigation('top-left')" class="action-button top-left"></a>
+  <a (click)="onTableNavigation('left')" class="action-button left"></a>
+  <input (keydown.enter)="onTableNavigation('input', currentPage.value)" type="text" name="" [value]="tableNav.current" class="" #currentPage>
   <p>/</p>
   <input type="text" name="" placeholder="3" class="" disabled>
-  <a href="" class="action-button right"></a>
-  <a href="" class="action-button top-right"></a>
+  <a (click)="onTableNavigation('right')" class="action-button right"></a>
+  <a (click)="onTableNavigation('top-right')" class="action-button top-right"></a>
 </div>

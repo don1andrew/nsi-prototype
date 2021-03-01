@@ -8,11 +8,20 @@ import { UserSessionService } from '../SERVICES/user-session.service';
 })
 export class StartViewComponent implements OnInit {
 
-  currentUser?: string;
+  currentUser!: string;
+  currentRole!: string;
+
   constructor(private userSession: UserSessionService) { }
 
   ngOnInit(): void {
     this.currentUser = this.userSession.getCurrentUser();
+  }
+  onStartButton(value: string): void {
+    this.userSession.setCurrentRole(value);
+    console.log(`starts with role: ${value}`);
+  }
+  debug(): void {
+    console.log(`Selected: `);
   }
 
 }
