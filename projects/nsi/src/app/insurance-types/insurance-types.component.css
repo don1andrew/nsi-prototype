@@ -47,13 +47,26 @@ h1 {
   font-size: 2.2em;
   font-weight: normal;
 }
+.panel-filters {
+  display: flex;
+  align-items: flex-end;
+}
 .panel-filters > div {
   display: inline-block;
   margin-right: 10px;
   margin-bottom: 10px;
 }
+.panel-filters input:nth-of-type(1),
+.panel-filters a:nth-of-type(1) {
+  margin-right: 3px;
+}
+/* search wrapper */
 .panel-filters > div:last-child {
-  width: calc(100% - 1140px);
+  /* width: calc(100% - 1140px); */
+  /* justify-self: flex-end; */
+  /* margin-left: auto; */
+  flex: 1;
+  margin-right: 0;
 }
 .dropdown {
   height: 33px;

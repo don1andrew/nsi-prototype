@@ -10,33 +10,33 @@
 <div class="panel-filters">
   <div>
     <p>Статус записи</p>
-    <select class="dropdown">
+    <select class="dropdown" [(ngModel)]="filters.recordStatus">
       <option>Опубликованная</option>
       <option>Новая</option>
     </select>
   </div>
   <div>
     <p>Статус кода</p>
-    <select class="dropdown">
+    <select class="dropdown" [(ngModel)]="filters.codeStatus">
       <option>Введен</option>
-      <option>Публикация</option>
+      <!-- <option>Публикация</option> -->
       <option>Закрыт</option>
     </select>
   </div>
   <div>
     <p>Измененных в период</p>
-    <input type="date" name="date1" placeholder="ДАТА">
-    <input type="date" name="date1" placeholder="ДАТА">
+    <input [(ngModel)]="filters.changedFrom" type="date" name="date1" placeholder="ДАТА" disabled>
+    <input [(ngModel)]="filters.changedTo" type="date" name="date1" placeholder="ДАТА" disabled>
   </div>
   <div>
     <p>Действующих в период</p>
-    <input type="date" name="date1" placeholder="ДАТА">
-    <input type="date" name="date1" placeholder="ДАТА">
+    <input [(ngModel)]="filters.activeFrom" type="date" name="date1" placeholder="ДАТА">
+    <input [(ngModel)]="filters.activeTo" type="date" name="date1" placeholder="ДАТА">
   </div>
   <div>
     <!-- <p>12</p> -->
-    <a name="werg" class="filter-button button" href="">Применить</a>
-    <a class="filter-button button" href="">Очистить</a>
+    <a (click)="onApplyFilters()" class="filter-button button">Применить</a>
+    <a (click)="onClearFilters()" class="filter-button button">Очистить</a>
   </div>
   <div>
     <input (keydown.enter)="onSearchEnter($event)" #searchInput type="text" name="" placeholder="ПОИСК" class="search">
