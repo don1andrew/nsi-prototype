@@ -1,8 +1,8 @@
 <header class="header">
   <img class="logo" src="assets/img/home-logo.svg">
   <div class="user-status">
-    <div><div>Пользователь</div>{{ currentUser }}</div>
-    <div><div>Полномочия</div>{{ currentRole }}</div>
+    <div><div>Пользователь</div>{{ session.currentUser }}</div>
+    <div><div>Полномочия</div>{{ session.currentRole }}</div>
   </div>
   <a class="main-nav-button button" routerLink="/list">К списку справочников</a>
 </header>
@@ -11,6 +11,7 @@
   <div>
     <p>Статус записи</p>
     <select class="dropdown" [(ngModel)]="filters.recordStatus">
+      <option>Все</option>
       <option>Опубликованная</option>
       <option>Новая</option>
     </select>
@@ -18,8 +19,8 @@
   <div>
     <p>Статус кода</p>
     <select class="dropdown" [(ngModel)]="filters.codeStatus">
+      <option>Все</option>
       <option>Введен</option>
-      <!-- <option>Публикация</option> -->
       <option>Закрыт</option>
     </select>
   </div>
@@ -42,23 +43,22 @@
     <input (keydown.enter)="onSearchEnter($event)" #searchInput type="text" name="" placeholder="ПОИСК" class="search">
   </div>
 </div>
-<a (click)="debug()" class="action-button add"></a>
-<a href="" class="action-button submit"></a>
-<a href="" class="action-button link"></a>
-<a href="" class="action-button remove"></a>
-<a href="" class="action-button attr disabled"></a>
-<a href="" class="action-button date"></a>
-<a href="" class="action-button add-field"></a>
-<a href="" class="action-button history"></a>
+<a (click)="debug()" class="action-button add disabled" title="Добавить запись"></a>
+<a class="action-button submit disabled" title="Публикация записи"></a>
+<a class="action-button link disabled" title="Просмотр соответствий"></a>
+<a class="action-button remove disabled" title="Удалить запись"></a>
+<a class="action-button attr disabled" title="Просмотр доп. атрибутов"></a>
+<a class="action-button add-field disabled" title="Добавить поле"></a>
+<a class="action-button history disabled" title="Просмотр истории кода"></a>
 <table>
   <thead>
   <tr>
-    <th>Полное наименование<a href="" class="action-button edit"></a></th>
-    <th>Статус записи<a href="" class="action-button edit"></a></th>
-    <th>Код РУФР<a href="" class="action-button edit"></a></th>
-    <th>Дата начала действия записи<a href="" class="action-button edit"></a></th>
-    <th>Дата окончания действия записи<a href="" class="action-button edit"></a></th>
-    <th>Дата окончания действия кода<a href="" class="action-button edit"></a></th>
+    <th>Полное наименование<a class="action-button edit"></a></th>
+    <th>Статус записи<a class="action-button edit"></a></th>
+    <th>Код РУФР<a class="action-button edit"></a></th>
+    <th>Дата начала действия записи<a class="action-button edit"></a></th>
+    <th>Дата окончания действия записи<a class="action-button edit"></a></th>
+    <th>Дата окончания действия кода<a class="action-button edit"></a></th>
   </tr>
   </thead>
   <tbody>

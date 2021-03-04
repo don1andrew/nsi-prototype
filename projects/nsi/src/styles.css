@@ -1,22 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
 /*@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');*/
 :root {
+  --soft-blue: #f0fcff;
   --soft-grayblue: #DFE2E5;
+  --cbr-lightblue: #0be;
+  --cbr-yellow: #fb4;
+  --cbr-lightyellow: #fc8;
   --grayblue: #9FA5AD;
   --note-gray: #a6a6a6;
-  --icon-dropdown: url('./icons/dropdown.svg');
-  --icon-edit: url('./icons/edit.svg');
-  --icon-add: url('./icons/add.svg');
-  --icon-submit: url('./icons/submit.svg');
-  --icon-link: url('./icons/link.svg');
-  --icon-remove: url('./icons/remove.svg');
-  --icon-attr: url('./icons/attr.svg');
-  --icon-date: url('./icons/date.svg');
-  --icon-add-field: url('./icons/add_field.svg');
-  --icon-history: url('./icons/history.svg');
-  --icon-search: url('./icons/search.svg');
-  --icon-right: url('./icons/right.svg');
-  --icon-top-right: url('./icons/top_right.svg');
+
+  --icon-dropdown: url('./assets/icons/dropdown.svg');
+  --icon-edit: url('./assets/icons/edit.svg');
+  --icon-add: url('./assets/icons/add.svg');
+  --icon-submit: url('./assets/icons/submit.svg');
+  --icon-link: url('./assets/icons/link.svg');
+  --icon-remove: url('./assets/icons/remove.svg');
+  --icon-attr: url('./assets/icons/attr.svg');
+  --icon-date: url('./assets/icons/date.svg');
+  --icon-add-field: url('./assets/icons/add_field.svg');
+  --icon-history: url('./assets/icons/history.svg');
+  --icon-search: url('./assets/icons/search.svg');
+  --icon-right: url('./assets/icons/right.svg');
+  --icon-top-right: url('./assets/icons/top_right.svg');
   /*--icon-: url('icons/.svg');*/
 
   /*background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 7 8'%3e%3cpath stroke='%23000' d='M1,2h5m0,2h-5m0,2h5' stroke-width='1' fill='%23fff'/%3e%3c/svg%3e");*/
@@ -25,13 +30,13 @@
 @font-face {
   font-family: "Roboto";
   font-weight: normal;
-  src: url(./fonts/Roboto/Roboto-Regular.ttf);
+  src: url(./assets/fonts/Roboto/Roboto-Regular.ttf);
   /*  	url('https://fonts.googleapis.com/css2?family=Roboto&display=swap') format("woff2"); */
 }
 @font-face {
   font-family: "Roboto";
   font-weight: bold;
-  src: url(./fonts/Roboto/Roboto-Bold.ttf);
+  src: url(./assets/fonts/Roboto/Roboto-Bold.ttf);
   /*  	url('https://fonts.googleapis.com/css2?family=Roboto&display=swap') format("woff2"); */
 }
 html, button, a {

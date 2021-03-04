@@ -17,10 +17,12 @@
   background-color: var(--soft-grayblue);
 
 }
-.action-button.disabled {
+.action-button.disabled,
+input[disabled][type="date"] {
   /*filter: saturate(50%);*/
   opacity: .3;
   cursor: default;
+  pointer-events: none;
 }
 .add { background-image: var(--icon-add); }
 .edit { background-image: var(--icon-edit); background-color: #fff; }

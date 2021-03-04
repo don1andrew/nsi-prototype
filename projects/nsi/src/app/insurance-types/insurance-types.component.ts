@@ -16,13 +16,12 @@ export class InsuranceTypesComponent implements OnInit {
   private filteredData: IHandbookRow[] = [];
   
   displayData: IHandbookRow[] = [];
-  currentUser?: string;
-  currentRole?: string;
+  session = { currentUser: '', currentRole: '',};
   info: string = '';
-  tableNav  = { current: 1, total: 1, max: 1, rows: 10 }
+  tableNav  = { current: 1, total: 1, max: 1, rows: 10 };
   filters = {
-    recordStatus: '',
-    codeStatus: '',
+    recordStatus: 'Все',
+    codeStatus: 'Все',
     changedFrom: '',
     changedTo: '',
     activeFrom: '',
@@ -32,8 +31,8 @@ export class InsuranceTypesComponent implements OnInit {
   constructor(private dataService: DataService, private userSession: UserSessionService) { }
 
   ngOnInit(): void {
-    this.currentUser = this.userSession.getCurrentUser();
-    this.currentRole = this.userSession.getCurrentRole();
+    this.session.currentUser = this.userSession.getCurrentUser();
+    this.session.currentRole = this.userSession.getCurrentRole();
     this.tableData = this.dataService.getData().slice();
     this.filteredData = this.tableData;
     this.displayData = this.filteredData.slice(0, this.tableNav.rows);
@@ -48,13 +47,13 @@ export class InsuranceTypesComponent implements OnInit {
     this.filteredData = this.tableData;
 
     // record
-    if (this.filters.recordStatus != '') {
+    if (this.filters.recordStatus != 'Все') {
       this.filteredData = this.filteredData
       .filter(e => { return (e.recordStatus === this.filters.recordStatus) ? true : false; });
     }
 
     // code
-    if (this.filters.codeStatus != '') {
+    if (this.filters.codeStatus != 'Все') {
       this.filteredData = this.filteredData
       .filter(e => { 
         if ('Введен' === this.filters.codeStatus) {
@@ -70,13 +69,13 @@ export class InsuranceTypesComponent implements OnInit {
     // record period
     if (this.filters.activeFrom != '') {
       this.filteredData = this.filteredData.filter(e => {
-        return (new Date(this.filters.activeFrom).getTime() < 
+        return (new Date(this.filters.activeFrom+'T00:00:00').getTime() <= 
           this.dateFromCustomString(e.recordStartDate).getTime()) ? true : false;
       });
     }
     if (this.filters.activeTo != '') {
       this.filteredData = this.filteredData.filter(e => {
-        return (new Date(this.filters.activeTo).getTime() > 
+        return (new Date(this.filters.activeTo+'T00:00:00').getTime() >= 
           this.dateFromCustomString(e.recordEndDate).getTime()) ? true : false;
       });
     }
@@ -86,9 +85,17 @@ export class InsuranceTypesComponent implements OnInit {
     this.info =`Найдено записей: ${this.filteredData.length}`;
   }
   onClearFilters(): void {
-    for (let e in this.filters) {
-      (<any>this.filters)[e as keyof any] = '';
-    }
+    // for (let e in this.filters) {
+    //   (<any>this.filters)[e as keyof any] = '';
+    // }
+    this.filters = {
+      recordStatus: 'Все',
+      codeStatus: 'Все',
+      changedFrom: '',
+      changedTo: '',
+      activeFrom: '',
+      activeTo: '',
+    };
     this.filteredData = this.tableData;
     this.tableNav.max = Math.ceil(this.filteredData.length / this.tableNav.rows);
     this.setDisplayData(1);
