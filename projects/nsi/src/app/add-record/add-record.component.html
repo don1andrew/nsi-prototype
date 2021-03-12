@@ -1,0 +1,31 @@
+<div class="blur"></div>
+<section>
+    <h1>Добавление нового кода</h1>
+    <form class="fields">
+        <div class="text-input-area">
+            <p>Запись верхнего уровня<a name="choose">выбрать</a></p>
+            <input type="text" name="" #topLevel>
+            <p>Текстовый код</p>
+            <input type="text" name="" #code>
+            <p>Полное наименование</p>
+            <textarea #fullname></textarea>
+            <!-- <input type="text" name=""> -->
+            <p>Документ, регламентирующий начало действия</p>
+            <!-- <input type="text" name=""> -->
+            <textarea #doc></textarea>
+        </div>
+        <div class="date-input-area">
+            <p>Дата начала действия записи</p>
+            <input type="date" name="date1" #recordStartDate>
+            <p>Дата окончания действия записи</p>
+            <input type="date" name="date1" #recordEndDate>
+            <p>Дата окончания действия кода</p>
+            <input type="date" name="date1" #codeEndDate>
+        </div>
+        <div class="buttons-wrap">		
+            <a (click)="onAdd(topLevel.value, code.value, fullname.value, recordStartDate.value, 
+            recordEndDate.value, codeEndDate.value)" name="werg" class="filter-button button">Добавить</a>
+            <a routerLink="../" class="filter-button button">Отмена</a>
+        </div>
+    </form>	
+</section>

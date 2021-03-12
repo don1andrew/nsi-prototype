@@ -7,12 +7,17 @@ import { HandbookData, IHandbookRow } from '../tsfiles/mock-table-data'
 })
 
 export class DataService {
-    // private 
 
-    private data!: HandbookData;
+    // private data!: HandbookData;
 
     getData(rows: number = 45): IHandbookRow[] {
         return HandbookData.getData(rows);
+    }
+    addRecord(record: IHandbookRow): void {
+      HandbookData.addRecord(record);
+    }
+    deleteRecords(id: number[]): void {
+      HandbookData.deleteRecords(id);
     }
     constructor () {}
 }

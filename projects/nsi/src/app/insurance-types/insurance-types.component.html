@@ -43,13 +43,15 @@
     <input (keydown.enter)="onSearchEnter($event)" #searchInput type="text" name="" placeholder="ПОИСК" class="search">
   </div>
 </div>
-<a (click)="debug()" class="action-button add disabled" title="Добавить запись"></a>
+<a routerLink="add-record" class="action-button add" title="Добавить запись"></a>
+<a class="action-button edit" [class.disabled]="buttonsDisabled.edit"></a>
 <a class="action-button submit disabled" title="Публикация записи"></a>
 <a class="action-button link disabled" title="Просмотр соответствий"></a>
-<a class="action-button remove disabled" title="Удалить запись"></a>
+<a (click)="onRemove(tableBody)" class="action-button remove" [class.disabled]="buttonsDisabled.remove" title="Удалить запись"></a>
 <a class="action-button attr disabled" title="Просмотр доп. атрибутов"></a>
-<a class="action-button add-field disabled" title="Добавить поле"></a>
+<a class="action-button add-field" title="Добавить поле"></a>
 <a class="action-button history disabled" title="Просмотр истории кода"></a>
+<a (click)="debug()" class="action-button"></a>
 <table>
   <thead>
   <tr>
@@ -61,9 +63,10 @@
     <th>Дата окончания действия кода<a class="action-button edit"></a></th>
   </tr>
   </thead>
-  <tbody>
-    <tr *ngFor="let td of displayData">
-      <td>{{td.fullname}}</td>
+  <tbody #tableBody>
+    <tr *ngFor="let td of displayData" >
+      <td><input type="checkbox" [id]="td.id" (change)="onCheckboxChange()"><label [for]="td.id"></label>{{td.fullname}}</td>
+      <td class="hidden">{{td.id}}</td>  
       <td>{{td.recordStatus}}</td>
       <td>{{td.code}}</td>
       <td>{{td.recordStartDate}}</td>
