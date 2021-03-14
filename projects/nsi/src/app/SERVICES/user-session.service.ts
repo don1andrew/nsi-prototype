@@ -11,6 +11,8 @@ export class UserSessionService {
   // tslint:disable-next-line:no-inferrable-types
   private currentRole: string = this.userRoles[0];
 
+  private recordId: number | null = null;
+
 
   constructor() {
   }
@@ -26,5 +28,11 @@ export class UserSessionService {
   }
   setCurrentRole(val: string): void {
     this.currentRole = val;
+  }
+  passRecordId(id: number): void {
+    this.recordId = id;
+  }
+  getRecordId(): number | null {
+    return this.recordId;
   }
 }

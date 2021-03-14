@@ -130,6 +130,10 @@ export class InsuranceTypesComponent implements OnInit {
     this.buttonsDisabled = { edit: true, remove: true };
     this.setTablePage(this.tableNav.current);
   }
+  onEditClick(): void {
+    const ch = document.querySelector('[type="checkbox"]:checked');
+    this.userSession.passRecordId(parseInt(ch!.id));
+  }
   onCheckboxChange(): void {
     this.updateButtons();
   }
@@ -189,7 +193,7 @@ export class InsuranceTypesComponent implements OnInit {
   }
   private updateButtons(): void {
     const c = document.querySelectorAll('[type="checkbox"]:checked');
-    console.log(c);
+    // console.log(c);
     this.buttonsDisabled.edit = c.length !== 1;
     this.buttonsDisabled.remove = c.length === 0;
   }

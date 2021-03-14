@@ -45,7 +45,7 @@ input[disabled][type="date"] {
 }
 /*.add { background-image: var(--icon-date); }*/
 h1 {
-  margin: 100px auto 15px 15px;
+  margin: 100px auto 15px 0px;
   font-size: 2.2em;
   font-weight: normal;
 }

@@ -44,14 +44,14 @@
   </div>
 </div>
 <a routerLink="add-record" class="action-button add" title="Добавить запись"></a>
-<a class="action-button edit" [class.disabled]="buttonsDisabled.edit"></a>
+<a routerLink="edit-record" (click)="onEditClick()" class="action-button edit" [class.disabled]="buttonsDisabled.edit"></a>
 <a class="action-button submit disabled" title="Публикация записи"></a>
 <a class="action-button link disabled" title="Просмотр соответствий"></a>
 <a (click)="onRemove(tableBody)" class="action-button remove" [class.disabled]="buttonsDisabled.remove" title="Удалить запись"></a>
 <a class="action-button attr disabled" title="Просмотр доп. атрибутов"></a>
 <a class="action-button add-field" title="Добавить поле"></a>
 <a class="action-button history disabled" title="Просмотр истории кода"></a>
-<a (click)="debug()" class="action-button"></a>
+<!-- <a (click)="debug()" class="action-button"></a> -->
 <table>
   <thead>
   <tr>

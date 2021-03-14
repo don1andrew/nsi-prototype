@@ -44,6 +44,12 @@ export class HandbookData {
         record.fullname += `++ №${this.data.length+1}`
         this.data.push(record);
     }
+    public static getRecord(id: number): IHandbookRow | undefined {
+        return this.data.find(el => el.id === id);
+    }
+    public static changeRecord(id: number, record: IHandbookRow): void {
+        Object.assign(this.getRecord(id), record);
+    }
     public static deleteRecords(id: number[]): void {
         console.log(id);
         for (let idx = this.data.length-1; idx >= 0; idx--) {
