@@ -45,7 +45,7 @@ input[disabled][type="date"] {
 }
 /*.add { background-image: var(--icon-date); }*/
 h1 {
-  margin: 100px auto 15px 15px;
+  margin: 100px auto 15px 0px;
   font-size: 2.2em;
   font-weight: normal;
 }
@@ -139,6 +139,9 @@ table {
   border-collapse: collapse;
 
 }
+.hidden {
+  display: none;
+}
 th {
   background-color: var(--soft-grayblue);
 }
@@ -153,7 +156,7 @@ th:nth-child(1) {
   width: 35%;
 }
 td:first-child {
-  padding-left: 20px;
+  padding-left: 40px;
 }
 tr > :last-child {
   border-right: none;
@@ -174,6 +177,34 @@ th > .action-button {
 th:hover > .action-button {
   display: block;
 }
+
+/* stylize checkbox */
+td > [type="checkbox"] {
+  display: none;
+}
+tr:hover [type="checkbox"]+label::before,
+tr [type="checkbox"]:checked+label::before {
+  content: '';
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  position: absolute;
+  height: 22px;
+  width: 22px;
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 1px solid #333333;
+  /* margin: 0; */
+  cursor: pointer;
+}
+tr [type="checkbox"]:checked+label::before {
+  /* display: flex; */
+  content: "\25a0";
+  font-size: 1.7em;
+  border-color: black;
+}
+
 .table-nav {
   display: flex;
   margin: 10px 0 auto 0;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, OnChanges, OnInit } from '@angular/core';
 
 import { DataService } from '../SERVICES/data.service';
 import { UserSessionService } from '../SERVICES/user-session.service';
@@ -27,6 +27,7 @@ export class InsuranceTypesComponent implements OnInit {
     activeFrom: '',
     activeTo: '',
   };
+  buttonsDisabled = { edit: true, remove: true };
 
   constructor(private dataService: DataService, private userSession: UserSessionService) { }
 
@@ -36,7 +37,7 @@ export class InsuranceTypesComponent implements OnInit {
     this.tableData = this.dataService.getData().slice();
     this.filteredData = this.tableData;
     this.displayData = this.filteredData.slice(0, this.tableNav.rows);
-    this.tableNav.max = Math.floor(this.filteredData.length / this.tableNav.rows) + 1;
+    this.tableNav.max = Math.ceil(this.filteredData.length / this.tableNav.rows);
     this.info = `Всего записей: ${this.filteredData.length}`;
 
     console.log('init insurance');
@@ -47,33 +48,33 @@ export class InsuranceTypesComponent implements OnInit {
     this.filteredData = this.tableData;
 
     // record
-    if (this.filters.recordStatus != 'Все') {
+    if (this.filters.recordStatus !== 'Все') {
       this.filteredData = this.filteredData
       .filter(e => (e.recordStatus === this.filters.recordStatus));
     }
 
     // code
-    if (this.filters.codeStatus != 'Все') {
+    if (this.filters.codeStatus !== 'Все') {
       this.filteredData = this.filteredData
       .filter(e => {
         if ('Введен' === this.filters.codeStatus) {
           return (1 === this.compareDateStringToNow(e.codeEndDate));
         }
         if ('Закрыт' === this.filters.codeStatus) {
-          return (-1 == this.compareDateStringToNow(e.codeEndDate));
+          return (-1 === this.compareDateStringToNow(e.codeEndDate));
         }
         return false;
       });
     }
 
     // record period
-    if (this.filters.activeFrom != '') {
+    if (this.filters.activeFrom !== '') {
       this.filteredData = this.filteredData.filter(e => {
         return (new Date(this.filters.activeFrom + 'T00:00:00').getTime() <=
           this.dateFromCustomString(e.recordStartDate).getTime());
       });
     }
-    if (this.filters.activeTo != '') {
+    if (this.filters.activeTo !== '') {
       this.filteredData = this.filteredData.filter(e => {
         return (new Date(this.filters.activeTo + 'T00:00:00').getTime() >=
           this.dateFromCustomString(e.recordEndDate).getTime());
@@ -107,8 +108,8 @@ export class InsuranceTypesComponent implements OnInit {
       this.filteredData = this.tableData;
       this.info = `Всего записей: ${this.filteredData.length}`;
     } else {
-      this.filteredData = this.tableData.filter(e => {
-        return e.fullname.search(new RegExp(text, 'i')) !== -1;
+      this.filteredData = this.tableData.filter(elem => {
+        return elem.fullname.search(new RegExp(text, 'i')) !== -1;
       });
       this.info = `Найдено записей: ${this.filteredData.length}`;
     }
@@ -116,7 +117,28 @@ export class InsuranceTypesComponent implements OnInit {
     this.setDisplayData(1);
     // console.log(`Enter: ${e.target.value}`);
   }
-  onTableNavigation(type: string, page: string= '0'): void {
+
+
+  onRemove(elem: HTMLTableSectionElement): void {
+    const ch = document.querySelectorAll('[type="checkbox"]:checked');
+    const rm: number[] = [];
+    ch.forEach(element => {
+      rm.push(parseInt(element.id, 10));
+    });
+    this.dataService.deleteRecords(rm);
+    this.ngOnInit();
+    this.buttonsDisabled = { edit: true, remove: true };
+    this.setTablePage(this.tableNav.current);
+  }
+  onEditClick(): void {
+    const ch = document.querySelector('[type="checkbox"]:checked');
+    // @ts-ignore
+    this.userSession.passRecordId(+ch.id);
+  }
+  onCheckboxChange(): void {
+    this.updateButtons();
+  }
+  onTableNavigation(type: string, page: string = '0'): void {
     switch (type) {
       case 'top-left':
         this.setTablePage(1);
@@ -135,17 +157,21 @@ export class InsuranceTypesComponent implements OnInit {
         if (!isNaN(p)) { this.setTablePage(p); }
         console.log(`Page input: ${page}`);
         break;
-      }
+
+    }
     // console.log(`Page: ${this.tableNav.current}`);
   }
 
   private setTablePage(val: number): void {
-    // console.log('set table page');
-    if (val < 1 || val > this.tableNav.max) { return; }
-    else if (this.tableNav.current !== val) {
-      this.setDisplayData(val);
+    console.log(`table page curent: ${this.tableNav.current}, set to ${val}`);
+    if (val < 1) { val = 1; }
+    if (val > this.tableNav.max) { val = this.tableNav.max; }
+    // if (val < 1 || val > this.tableNav.max) return;
+    this.setDisplayData(val);
+
+    // if (this.tableNav.current !== val) {
       // console.log(`Set input to: ${this.tableNav.current}`);
-    }
+    // }
   }
   private setDisplayData(page: number): void {
     this.tableNav.current = page;
@@ -168,10 +194,15 @@ export class InsuranceTypesComponent implements OnInit {
     return new Date(parseInt(date.substring(6, 10), 10), parseInt(date.substring(3, 7), 10) - 1,
     parseInt(date.substring(0, 2), 10));
   }
+  private updateButtons(): void {
+    const c = document.querySelectorAll('[type="checkbox"]:checked');
+    // console.log(c);
+    this.buttonsDisabled.edit = c.length !== 1;
+    this.buttonsDisabled.remove = c.length === 0;
+  }
   public debug(): void {
-    console.log(this.filters);
-    // console.log((new Date()).toLocaleDateString());
-    console.log(this.compareDateStringToNow('12.12.2010'));
+    const c = document.querySelectorAll('[type="checkbox"]:checked');
+    console.log(c, this.buttonsDisabled);
   }
 
 }
