@@ -8,6 +8,7 @@ export interface IHandbookRow {
     codeEndDate: string;
 }
 
+
 export class HandbookData {
     private static data: IHandbookRow[] = [];
 
@@ -19,7 +20,7 @@ export class HandbookData {
     private static generateData(rows: number): void {
         this.data = [];
         for (let i = 0; i < rows; i++) {
-            let date: number = (Date.now()-Math.random()*20*365*24*60*60*1000+10*365*24*60*60*1000); 
+            let date: number = (Date.now()-Math.random()*20*365*24*60*60*1000+10*365*24*60*60*1000);
             this.data.push({
                 id: i,
                 fullname: `Запись справочника №${i+1}`,
@@ -35,7 +36,7 @@ export class HandbookData {
 
     public static getData(rows: number): IHandbookRow[] {
         if (this.data.length === 0) {
-            this.generateData(rows);  
+            this.generateData(rows);
         }
         return this.data;
     }
@@ -58,13 +59,6 @@ export class HandbookData {
                 this.data.splice(idx, 1);
             }
         }
-        // this.data.forEach((el, idx) => {
-        //     if (id.includes(el.id)) {
-        //         this.data.splice(idx, 1);
-        //         console.log(`found id: ${el.id}, length: ${this.data.length}`);
-        //     }
-        // })
     }
 }
 
-// export const data: IHandbookRow[] = HandbookData.getData(45);

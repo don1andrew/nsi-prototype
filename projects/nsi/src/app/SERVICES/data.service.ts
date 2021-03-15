@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { HandbookData, IHandbookRow } from '../tsfiles/mock-table-data'
+import { HandbookData, IHandbookRow } from '../tsfiles/mock-table-data';
 
 @Injectable({
   providedIn: 'root',
@@ -20,10 +20,14 @@ export class DataService {
       return HandbookData.getRecord(id);
     }
     changeRecord(id: number | null, record: IHandbookRow): void {
-      if (id !== null ) HandbookData.changeRecord(id, record);
+      if (id !== null ) { HandbookData.changeRecord(id, record); }
     }
     deleteRecords(id: number[]): void {
       HandbookData.deleteRecords(id);
+    }
+    addField(): void {
+    }
+    editField(): void {
     }
     getEmptyRow(): IHandbookRow {
       return { id: 0,
@@ -32,8 +36,8 @@ export class DataService {
         code: '',
         recordStartDate: '',
         recordEndDate: '',
-        codeEndDate: '', 
-      }
+        codeEndDate: '',
+      };
     }
-    constructor () {}
+    constructor() {}
 }

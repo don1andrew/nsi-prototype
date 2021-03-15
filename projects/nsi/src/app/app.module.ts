@@ -9,6 +9,8 @@ import { InsuranceTypesComponent } from './insurance-types/insurance-types.compo
 import { HandbooksListComponent } from './handbooks-list/handbooks-list.component';
 import { AddRecordComponent } from './add-record/add-record.component';
 import { EditRecordComponent } from './edit-record/edit-record.component';
+import { AddFieldComponent } from './add-field/add-field.component';
+import { EditFieldComponent } from './edit-field/edit-field.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { EditRecordComponent } from './edit-record/edit-record.component';
     InsuranceTypesComponent,
     HandbooksListComponent,
     AddRecordComponent,
-    EditRecordComponent
+    EditRecordComponent,
+    AddFieldComponent,
+    EditFieldComponent
   ],
   imports: [
     BrowserModule,

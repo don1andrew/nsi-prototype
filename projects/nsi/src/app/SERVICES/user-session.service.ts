@@ -12,6 +12,7 @@ export class UserSessionService {
   private currentRole: string = this.userRoles[0];
 
   private recordId: number | null = null;
+  private fieldId: number | null = null;
 
 
   constructor() {
@@ -34,5 +35,11 @@ export class UserSessionService {
   }
   getRecordId(): number | null {
     return this.recordId;
+  }
+  passFieldId(id: number | null): void {
+    this.fieldId = id;
+  }
+  getFieldId(): number | null {
+    return this.fieldId;
   }
 }
