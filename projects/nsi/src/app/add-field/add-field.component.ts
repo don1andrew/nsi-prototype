@@ -15,12 +15,11 @@ export class AddFieldComponent implements OnInit {
   ngOnInit(): void {
   }
   onAdd(...params: string[]): void {
-    this.dataService.addField(params[0], params[1], params[2]);
+    const type = (params[1] === 'Дата') ? 'date' : 'string';
+    this.dataService.addField(params[0], type, params[2]);
     this.router.navigate(['/insurance_types']);
     console.log(params);
-    // HandbookDataExt.debug();
   }
   debug(): void {
-    // HandbookDataExt.changeRecord(3, ['3','547','streh','qwe123', 'qwe345', 'tyu567', '5687jj', '5g55g5g']);
   }
 }

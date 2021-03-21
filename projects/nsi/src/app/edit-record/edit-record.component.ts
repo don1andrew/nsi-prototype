@@ -2,13 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '../SERVICES/data.service';
 import { UserSessionService } from '../SERVICES/user-session.service';
-import { HandbookRow, Fields } from '../tsfiles/mock-table-data-ext';
+import { HandbookRow, Fields, HeaderData } from '../tsfiles/mock-table-data-ext';
 
 @Component({
   selector: 'app-edit-record',
   templateUrl: './edit-record.component.html',
-  styleUrls: ['../insurance-types/insurance-types.component.css',
-  '../add-record/add-record.component.css', './edit-record.component.css']
+  styleUrls: ['../insurance-types/insurance-types.component.css', '../add-record/add-record.component.css', './edit-record.component.css']
 })
 export class EditRecordComponent implements OnInit {
 
@@ -17,9 +16,11 @@ export class EditRecordComponent implements OnInit {
 
     // public currentRecord: IHandbookRow = this.dataService.getEmptyRow();
     public currentRecord: HandbookRow = [];
+    public header: HeaderData[] = [];
     
 
   ngOnInit(): void {
+    this.header = this.dataService.getData().header;
     const id = this.userSession.getRecordId();
     if (id !== null) {
       this.currentRecord = Object.assign({}, this.dataService.getRecord(id));

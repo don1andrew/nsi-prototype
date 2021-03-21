@@ -44,7 +44,7 @@
   </div>
 </div>
 <a routerLink="add-record" class="action-button add" title="Добавить запись"></a>
-<a routerLink="edit-record" (click)="onEditClick()" class="action-button edit" [class.disabled]="buttonsDisabled.edit"></a>
+<a routerLink="edit-record" (click)="onEditClick()" class="action-button edit" [class.disabled]="buttonsDisabled.edit" title="Изменить запись"></a>
 <a class="action-button submit disabled" title="Публикация записи"></a>
 <a class="action-button link disabled" title="Просмотр соответствий"></a>
 <a (click)="onRemove(tableBody)" class="action-button remove" [class.disabled]="buttonsDisabled.remove" title="Удалить запись"></a>
@@ -56,7 +56,7 @@
   <thead>
     <tr>
       <th *ngFor="let th of tableHeader.slice(1); let i=index" [id]="th.name">
-        <a routerLink="edit-field" (click)="onEditField(i+1)" class="action-button edit"></a>
+        <a routerLink="edit-field" (click)="onEditField(i+1)" class="action-button edit" title="Изменить поле"></a>
         {{ th.description }}
       </th>
     </tr>

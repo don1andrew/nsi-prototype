@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { DataService } from '../SERVICES/data.service';
+import { HeaderData } from '../tsfiles/mock-table-data-ext';
 
 @Component({
   selector: 'app-add-record',
@@ -11,9 +12,12 @@ import { DataService } from '../SERVICES/data.service';
 })
 export class AddRecordComponent implements OnInit {
 
+  public header: HeaderData[] = [];
+  
   constructor(private router: Router, private dataService: DataService) { }
 
   ngOnInit(): void {
+    this.header = this.dataService.getData().header;
   }
 
   onAdd(...params:string[]): void {

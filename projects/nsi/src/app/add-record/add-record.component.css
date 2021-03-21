@@ -8,10 +8,14 @@
 	background-color: var(--grayblue);
 	/*filter: blur(3px);*/
 }
+body {
+	background-color: var(--soft-grayblue);
+}
 section {
 	position: relative;
 	width: 700px;
-	height: 500px;
+	/* height: 500px; */
+	height: fit-content;
 	margin: 100px auto 0;
 	padding: 20px;
 	background-color: #fff;
