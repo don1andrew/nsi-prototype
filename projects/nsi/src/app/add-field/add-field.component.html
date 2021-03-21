@@ -4,17 +4,17 @@
   <form class="fields">
     <div class="text-input-area">
       <p>Имя поля</p>
-      <input type="text" name="" #topLevel>
-      <select class="dropdown">
+      <input type="text" name="" #name>
+      <select class="dropdown" #type>
         <option>Текстовое поле</option>
         <option>Дата</option>
         <option>Число</option>
       </select>
       <p>Описание</p>
-      <textarea #fullname></textarea>
+      <textarea #description></textarea>
     </div>
     <div class="buttons-wrap">
-      <a (click)="onAdd()" name="werg" class="filter-button button">Добавить</a>
+      <a (click)="onAdd(name.value, type.value, description.value)" name="werg" class="filter-button button">Добавить</a>
       <a (click)="debug()" name="d" class="action-button"></a>
       <a routerLink="../" class="filter-button button">Отмена</a>
     </div>

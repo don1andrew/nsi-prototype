@@ -4,10 +4,10 @@
   <form class="fields">
     <div class="text-input-area">
       <p>Выбранное поле</p>
-      <input type="text" name="" topLevel disabled>
-      <a class="action-button rem#ove" title="Удалить поле"></a>
+      <input type="text" name="field" [(ngModel)]="field.name" disabled>
+      <a (click)="onDelete()" class="action-button remove" title="Удалить поле"></a>
       <p>Описание</p>
-      <textarea #fullname></textarea>
+      <textarea [(ngModel)]="field.description" name="descr"></textarea>
     </div>
     <div class="buttons-wrap">
       <a (click)="onEdit()" name="werg" class="filter-button button">Сохранить</a>

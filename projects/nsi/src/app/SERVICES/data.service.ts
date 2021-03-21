@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { HandbookDataExt, HandbookRow, HandbookData } from '../tsfiles/mock-table-data-ext';
+import { HandbookDataExt, HandbookRow, HandbookData, HeaderData } from '../tsfiles/mock-table-data-ext';
 
 @Injectable({
   providedIn: 'root',
@@ -19,15 +19,23 @@ export class DataService {
     getRecord(id: number): HandbookRow | undefined {
       return HandbookDataExt.getRecord(id);
     }
-    changeRecord(id: number | null, record: HandbookRow): void {
-      if (id !== null ) { HandbookDataExt.changeRecord(id, record); }
+    editRecord(id: number | null, record: HandbookRow): void {
+      if (id !== null ) { HandbookDataExt.editRecord(id, record); }
     }
     deleteRecords(id: number[]): void {
       HandbookDataExt.deleteRecords(id);
     }
-    addField(): void {
+    getField(id: number): HeaderData {
+      return HandbookDataExt.getField(id);
     }
-    editField(): void {
+    addField(name: string, type: string, description: string): void {
+      HandbookDataExt.addField(name, type, description);
+    }
+    editField(id: number | null, field: HeaderData): void {
+      if (id !== null ) { HandbookDataExt.editField(id, field) };
+    }
+    deleteField(id: number | null): void {
+      if (id !== null ) { HandbookDataExt.deleteField(id) };
     }
     getEmptyRow(): HandbookRow {
       // return { id: 0,

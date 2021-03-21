@@ -62,7 +62,7 @@ export class HandbookDataExt {
     const idx = this.data.body.findIndex(el => el[0] === id.toString());
     return this.data.body[idx];
   }
-  static changeRecord(id: number, record: HandbookRow): void {
+  static editRecord(id: number, record: HandbookRow): void {
     // this.getRecord(id).copyWithin = record.slice();
     Object.assign(this.getRecord(id), record);
   }
@@ -74,6 +74,24 @@ export class HandbookDataExt {
           this.data.body.splice(idx, 1);
       }
     }
+  }
+  static getField(id: number): HeaderData {
+    return Object.assign({}, this.data.header[id]);
+  }
+  static addField(name: string, type: string, description: string): void {
+    this.data.header.push({
+      name: name,
+      type: type,
+      description: description
+    });
+    this.data.body.forEach(e => e.push('default'));
+  }
+  static editField(id: number, field: HeaderData) {
+    this.data.header[id].description = field.description;
+  }
+  static deleteField(id: number): void {
+    this.data.header.splice(id, 1);
+    this.data.body.forEach(e => e.splice(id, 1));
   }
   static debug(): void {
     console.log(this.data);

@@ -37,7 +37,7 @@ export class EditRecordComponent implements OnInit {
     rec[Fields.recordStartDate] = this.isoDateToCustom(rec[Fields.recordStartDate]);
     rec[Fields.recordEndDate] = this.isoDateToCustom(rec[Fields.recordEndDate]);
     rec[Fields.codeEndDate] = this.isoDateToCustom(rec[Fields.codeEndDate]);
-    this.dataService.changeRecord(this.userSession.getRecordId(), rec);
+    this.dataService.editRecord(this.userSession.getRecordId(), rec);
     this.router.navigate(['/insurance_types']);
   }
   private customDateToISO(date: string): string {

@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { DataService } from '../SERVICES/data.service';
+import { UserSessionService } from '../SERVICES/user-session.service';
+import { HeaderData } from '../tsfiles/mock-table-data-ext';
 
 @Component({
   selector: 'app-edit-field',
@@ -7,11 +11,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditFieldComponent implements OnInit {
 
-  constructor() { }
+  public field!: HeaderData;
+
+  constructor(private router: Router, private userSession: UserSessionService, private dataService: DataService) { }
 
   ngOnInit(): void {
+    const id = this.userSession.getFieldId();
+    if (id !=null) {
+      this.field = this.dataService.getField(id);
+    }
   }
   onEdit(): void {
+    this.dataService.editField(this.userSession.getFieldId(), this.field);
+    this.router.navigate(['/insurance_types']);
+  }
+  onDelete(): void {
+    this.dataService.deleteField(this.userSession.getFieldId());
+    this.router.navigate(['/insurance_types']);
   }
 
 }

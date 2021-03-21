@@ -138,6 +138,9 @@ export class InsuranceTypesComponent implements OnInit {
     // @ts-ignore
     this.userSession.passRecordId(+ch.id);
   }
+  onEditField(id: number): void {
+    this.userSession.passFieldId(id);
+  }
   onCheckboxChange(): void {
     this.updateButtons();
   }
@@ -204,8 +207,7 @@ export class InsuranceTypesComponent implements OnInit {
     this.buttonsDisabled.remove = c.length === 0;
   }
   public debug(): void {
-    const c = document.querySelectorAll('[type="checkbox"]:checked');
-    console.log(c, this.buttonsDisabled);
+    this.dataService.deleteField(6);
   }
 
 }
