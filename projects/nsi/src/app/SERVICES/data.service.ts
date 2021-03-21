@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { HandbookData, IHandbookRow } from '../tsfiles/mock-table-data';
+import { HandbookDataExt, HandbookRow, HandbookData } from '../tsfiles/mock-table-data-ext';
 
 @Injectable({
   providedIn: 'root',
@@ -10,34 +10,35 @@ export class DataService {
 
     // private data!: HandbookData;
 
-    getData(rows: number = 45): IHandbookRow[] {
-        return HandbookData.getData(rows);
+    getData(rows: number = 45): HandbookData {
+        return HandbookDataExt.getData(rows);
     }
-    addRecord(record: IHandbookRow): void {
-      HandbookData.addRecord(record);
+    addRecord(record: HandbookRow): void {
+      HandbookDataExt.addRecord(record);
     }
-    getRecord(id: number): IHandbookRow | undefined {
-      return HandbookData.getRecord(id);
+    getRecord(id: number): HandbookRow | undefined {
+      return HandbookDataExt.getRecord(id);
     }
-    changeRecord(id: number | null, record: IHandbookRow): void {
-      if (id !== null ) { HandbookData.changeRecord(id, record); }
+    changeRecord(id: number | null, record: HandbookRow): void {
+      if (id !== null ) { HandbookDataExt.changeRecord(id, record); }
     }
     deleteRecords(id: number[]): void {
-      HandbookData.deleteRecords(id);
+      HandbookDataExt.deleteRecords(id);
     }
     addField(): void {
     }
     editField(): void {
     }
-    getEmptyRow(): IHandbookRow {
-      return { id: 0,
-        fullname: '',
-        recordStatus: '',
-        code: '',
-        recordStartDate: '',
-        recordEndDate: '',
-        codeEndDate: '',
-      };
+    getEmptyRow(): HandbookRow {
+      // return { id: 0,
+      //   fullname: '',
+      //   recordStatus: '',
+      //   code: '',
+      //   recordStartDate: '',
+      //   recordEndDate: '',
+      //   codeEndDate: '',
+      // };
+      return [];
     }
     constructor() {}
 }

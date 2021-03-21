@@ -2,7 +2,8 @@ import { AfterViewChecked, Component, OnChanges, OnInit } from '@angular/core';
 
 import { DataService } from '../SERVICES/data.service';
 import { UserSessionService } from '../SERVICES/user-session.service';
-import { IHandbookRow } from '../tsfiles/mock-table-data';
+import { HandbookDataExt, HandbookRow, HeaderData } from '../tsfiles/mock-table-data-ext';
+
 
 @Component({
   selector: 'app-insurance-types',
@@ -12,10 +13,11 @@ import { IHandbookRow } from '../tsfiles/mock-table-data';
 
 export class InsuranceTypesComponent implements OnInit {
 
-  private tableData: IHandbookRow[] = [];
-  private filteredData: IHandbookRow[] = [];
+  tableHeader: HeaderData[] = [];
+  private tableData: HandbookRow[] = [];
+  private filteredData: HandbookRow[] = [];
 
-  displayData: IHandbookRow[] = [];
+  displayData: HandbookRow[] = [];
   session = { currentUser: '', currentRole: '', };
   info = '';
   tableNav  = { current: 1, total: 1, max: 1, rows: 10 };
@@ -34,7 +36,8 @@ export class InsuranceTypesComponent implements OnInit {
   ngOnInit(): void {
     this.session.currentUser = this.userSession.getCurrentUser();
     this.session.currentRole = this.userSession.getCurrentRole();
-    this.tableData = this.dataService.getData().slice();
+    this.tableHeader = this.dataService.getData().header.slice();
+    this.tableData = this.dataService.getData().body.slice();
     this.filteredData = this.tableData;
     this.displayData = this.filteredData.slice(0, this.tableNav.rows);
     this.tableNav.max = Math.ceil(this.filteredData.length / this.tableNav.rows);
@@ -50,7 +53,7 @@ export class InsuranceTypesComponent implements OnInit {
     // record
     if (this.filters.recordStatus !== 'Все') {
       this.filteredData = this.filteredData
-      .filter(e => (e.recordStatus === this.filters.recordStatus));
+      .filter(e => (e[2] === this.filters.recordStatus));
     }
 
     // code
@@ -58,10 +61,10 @@ export class InsuranceTypesComponent implements OnInit {
       this.filteredData = this.filteredData
       .filter(e => {
         if ('Введен' === this.filters.codeStatus) {
-          return (1 === this.compareDateStringToNow(e.codeEndDate));
+          return (1 === this.compareDateStringToNow(e[6]));
         }
         if ('Закрыт' === this.filters.codeStatus) {
-          return (-1 === this.compareDateStringToNow(e.codeEndDate));
+          return (-1 === this.compareDateStringToNow(e[6]));
         }
         return false;
       });
@@ -71,13 +74,13 @@ export class InsuranceTypesComponent implements OnInit {
     if (this.filters.activeFrom !== '') {
       this.filteredData = this.filteredData.filter(e => {
         return (new Date(this.filters.activeFrom + 'T00:00:00').getTime() <=
-          this.dateFromCustomString(e.recordStartDate).getTime());
+          this.dateFromCustomString(e[4]).getTime());
       });
     }
     if (this.filters.activeTo !== '') {
       this.filteredData = this.filteredData.filter(e => {
         return (new Date(this.filters.activeTo + 'T00:00:00').getTime() >=
-          this.dateFromCustomString(e.recordEndDate).getTime());
+          this.dateFromCustomString(e[5]).getTime());
       });
     }
 
@@ -109,13 +112,13 @@ export class InsuranceTypesComponent implements OnInit {
       this.info = `Всего записей: ${this.filteredData.length}`;
     } else {
       this.filteredData = this.tableData.filter(elem => {
-        return elem.fullname.search(new RegExp(text, 'i')) !== -1;
+        return elem[1].search(new RegExp(text, 'i')) !== -1;
       });
       this.info = `Найдено записей: ${this.filteredData.length}`;
     }
     this.tableNav.max = Math.ceil(this.filteredData.length / this.tableNav.rows);
     this.setDisplayData(1);
-    // console.log(`Enter: ${e.target.value}`);
+    // // console.log(`Enter: ${e.target.value}`);
   }
 
 

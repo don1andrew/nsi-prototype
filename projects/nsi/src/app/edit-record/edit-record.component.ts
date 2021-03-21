@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '../SERVICES/data.service';
 import { UserSessionService } from '../SERVICES/user-session.service';
-import { IHandbookRow } from '../tsfiles/mock-table-data';
+import { HandbookRow, Fields } from '../tsfiles/mock-table-data-ext';
 
 @Component({
   selector: 'app-edit-record',
@@ -15,27 +15,28 @@ export class EditRecordComponent implements OnInit {
   constructor(private router: Router, private dataService: DataService, 
     private userSession: UserSessionService) { }
 
-    public currentRecord: IHandbookRow = this.dataService.getEmptyRow();
+    // public currentRecord: IHandbookRow = this.dataService.getEmptyRow();
+    public currentRecord: HandbookRow = [];
     
 
   ngOnInit(): void {
     const id = this.userSession.getRecordId();
     if (id !== null) {
       this.currentRecord = Object.assign({}, this.dataService.getRecord(id));
-      this.currentRecord.recordStartDate = this.customDateToISO(this.currentRecord.recordStartDate);
-      this.currentRecord.recordEndDate = this.customDateToISO(this.currentRecord.recordEndDate);
-      this.currentRecord.codeEndDate = this.customDateToISO(this.currentRecord.codeEndDate);
+      this.currentRecord[Fields.recordStartDate] = this.customDateToISO(this.currentRecord[Fields.recordStartDate]);
+      this.currentRecord[Fields.recordEndDate] = this.customDateToISO(this.currentRecord[Fields.recordEndDate]);
+      this.currentRecord[Fields.codeEndDate] = this.customDateToISO(this.currentRecord[Fields.codeEndDate]);
 
     }
-    console.log(this.currentRecord);
+    // console.log(this.currentRecord);
 
   }
 
   onEdit(...params: string[]): void {
     var rec = Object.assign({}, this.currentRecord);
-    rec.recordStartDate = this.isoDateToCustom(rec.recordStartDate);
-    rec.recordEndDate = this.isoDateToCustom(rec.recordEndDate);
-    rec.codeEndDate = this.isoDateToCustom(rec.codeEndDate);
+    rec[Fields.recordStartDate] = this.isoDateToCustom(rec[Fields.recordStartDate]);
+    rec[Fields.recordEndDate] = this.isoDateToCustom(rec[Fields.recordEndDate]);
+    rec[Fields.codeEndDate] = this.isoDateToCustom(rec[Fields.codeEndDate]);
     this.dataService.changeRecord(this.userSession.getRecordId(), rec);
     this.router.navigate(['/insurance_types']);
   }

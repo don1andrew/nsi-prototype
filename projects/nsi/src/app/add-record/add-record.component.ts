@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { IHandbookRow } from '../tsfiles/mock-table-data';
 import { DataService } from '../SERVICES/data.service';
 
 @Component({
@@ -18,13 +17,16 @@ export class AddRecordComponent implements OnInit {
   }
 
   onAdd(...params:string[]): void {
-    this.dataService.addRecord({id: 0, fullname: params[2], code: params[1], codeEndDate: params[5], 
-                                recordEndDate: params[4], recordStatus: 'Новая', recordStartDate: params[3]});
+    this.dataService.addRecord([ params[0], params[1], params[2], params[3], this.isoDateToCustom(params[4]), 
+      this.isoDateToCustom(params[5]), this.isoDateToCustom(params[6]) ]);
     this.router.navigate(['/insurance_types']);
 
-    params.forEach(str => {
-      console.log(str);
-    });
+    // params.forEach(str => {
+    //   console.log(str);
+    // });
+  }
+  private isoDateToCustom(date: string = '1900-01-01'): string {
+    return new Date(date + 'T00:00:00').toLocaleDateString();
   }
 
 }

@@ -54,17 +54,29 @@
 <!-- <a (click)="debug()" class="action-button"></a> -->
 <table>
   <thead>
-  <tr>
+    <tr>
+      <th *ngFor="let th of tableHeader.slice(1)" [id]="th.name">{{ th.description }}</th>
+    </tr>
+  <!-- <tr>
     <th>Полное наименование<a routerLink="edit-field" class="action-button edit"></a></th>
     <th>Статус записи<a class="action-button edit"></a></th>
     <th>Код РУФР<a class="action-button edit"></a></th>
     <th>Дата начала действия записи<a class="action-button edit"></a></th>
     <th>Дата окончания действия записи<a class="action-button edit"></a></th>
     <th>Дата окончания действия кода<a class="action-button edit"></a></th>
-  </tr>
+  </tr> -->
   </thead>
   <tbody #tableBody>
-    <tr *ngFor="let td of displayData" >
+    <tr *ngFor="let tr of displayData">
+      <td *ngFor="let td of tr.slice(1); let i=index">
+        <ng-container *ngIf="i === 0">
+          <input type="checkbox" [id]="tr[0]" (change)="onCheckboxChange()">
+          <label [for]="tr[0]"></label>
+        </ng-container>
+        {{ td }}
+      </td>
+    </tr>
+    <!-- <tr *ngFor="let td of displayData" >
       <td><input type="checkbox" [id]="td.id" (change)="onCheckboxChange()"><label [for]="td.id"></label>{{td.fullname}}</td>
       <td class="hidden">{{td.id}}</td>
       <td>{{td.recordStatus}}</td>
@@ -72,7 +84,7 @@
       <td>{{td.recordStartDate}}</td>
       <td>{{td.recordEndDate}}</td>
       <td>{{td.codeEndDate}}</td>
-    </tr>
+    </tr> -->
   </tbody>
 </table>
 <div class="table-nav">

@@ -23,8 +23,8 @@
             <input type="date" name="date1" #codeEndDate>
         </div>
         <div class="buttons-wrap">		
-            <a (click)="onAdd(topLevel.value, code.value, fullname.value, recordStartDate.value, 
-            recordEndDate.value, codeEndDate.value)" name="werg" class="filter-button button">Добавить</a>
+            <a (click)="onAdd('', fullname.value, 'Новая', code.value, recordStartDate.value, 
+            recordEndDate.value, codeEndDate.value, topLevel.value)" name="werg" class="filter-button button">Добавить</a>
             <a routerLink="../" class="filter-button button">Отмена</a>
         </div>
     </form>	

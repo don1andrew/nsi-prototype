@@ -1,50 +1,82 @@
-interface HeaderData {
+export interface HeaderData {
   type: string;
   name: string;
   description: string;
 }
-type HandbookRow = Array<string>;
-interface HandbookData {
+export type HandbookRow = Array<string>;
+export interface HandbookData {
   header: HeaderData[];
   body: HandbookRow[];
 }
-// export interface IHandbookRowExt {
-// }
+export enum Fields { id, fullname, recordStatus, code, recordStartDate, recordEndDate, codeEndDate }
 
 export class HandbookDataExt {
-  private data: HandbookData = { header: [], body: [] };
+  private static data: HandbookData = { header: [], body: [] };
 
+  private static status: string[] = ['Опубликованная', 'Новая'];
+  private static code: string[] = ['IC_PROP', 'IC_CTR_OP'];
   constructor() {
-    this.generateData();
   }
-
-  private generateData(rowsCount: number = 45): void {
-    this.data.header.push({ type: 'number', name: 'id', description: 'record\'s id'});
-    this.data.header.push({ type: 'string', name: 'name', description: 'record\'s name'});
-
-    this.data.body[0] = ['0', 'foo'];
-    this.data.body[1] = ['1', 'bar'];
-    this.data.body[2] = ['2', 'lol'];
-    this.data.body[3] = ['3', 'hah'];
+  // like static constructor
+  private static _init = (() => {
+        HandbookDataExt.generateData();
+  })();
+  private static getMockDate(): string {
+    return new Date(Date.now()-Math.random()*20*365*24*60*60*1000+10*365*24*60*60*1000).toLocaleDateString().replace('-','.');
   }
-  getData(): HandbookData {
+  private static generateData(rowsCount: number = 45): void {
+    this.data.header[0] = { type: 'number', name: 'id', description: 'record\'s id'};
+    this.data.header[1] = { type: 'string', name: 'fullname', description: 'Полное наименование'};
+    this.data.header[2] = { type: 'string', name: 'recordStatus', description: 'Статус записи'};
+    this.data.header[3] = { type: 'string', name: 'code', description: 'Код РУФР'};
+    this.data.header[4] = { type: 'date', name: 'recordStartDate', description: 'Дата начала действия записи'};
+    this.data.header[5] = { type: 'date', name: 'recordEndDate', description: 'Дата окончания действия записи'};
+    this.data.header[6] = { type: 'date', name: 'codeEndDate', description: 'Дата окончания действия кода'};
+    this.data.body = [];
+    for (let i = 0; i < rowsCount; i++) {
+        let date: number = (Date.now()-Math.random()*20*365*24*60*60*1000+10*365*24*60*60*1000);
+        this.data.body.push([
+            i.toString(),
+            `Запись справочника №${i+1}`,
+            this.status[Math.floor(Math.random()*2)],
+            this.code[Math.floor(Math.random()*2)],
+            new Date(date).toLocaleDateString(),
+            new Date(date+Math.random()*5*365*24*60*60*1000).toLocaleDateString(),
+            this.getMockDate(),
+        ]);
+
+      }
+  }
+  static getData(rowsCount: number): HandbookData {
+    if (this.data.body.length === 0) {
+      this.generateData(rowsCount);
+    }
     return this.data;
   }
-  addRecord(record: HandbookRow): void {
-    return;
+  static addRecord(record: HandbookRow): void {
+    record[0] = (this.data.body.slice(-1)[0][0]+1).toString();
+    this.data.body.push(record);
+    // console.log(this.data);
   }
-  getRecord(id: number): HandbookRow {
+  static getRecord(id: number): HandbookRow {
     const idx = this.data.body.findIndex(el => el[0] === id.toString());
     return this.data.body[idx];
   }
-  changeRecord(id: number, record: HandbookRow): void {
-    return;
+  static changeRecord(id: number, record: HandbookRow): void {
+    // this.getRecord(id).copyWithin = record.slice();
+    Object.assign(this.getRecord(id), record);
   }
-  deleteRecords(id: number[]): void {
-    return;
+  static deleteRecords(id: number[]): void {
+    console.log(id);
+    for (let idx = this.data.body.length-1; idx >= 0; idx--) {
+      if (id.includes(parseInt(this.data.body[idx][0]))) {
+          console.log(`found id: ${this.data.body[idx][0]}, length: ${this.data.body.length}`);
+          this.data.body.splice(idx, 1);
+      }
+    }
   }
-  debug(): void {
+  static debug(): void {
     console.log(this.data);
-    console.log(`record: ${this.getRecord(2)}`);
+    // console.log(`record: ${this.getRecord(2)}`);
   }
 }

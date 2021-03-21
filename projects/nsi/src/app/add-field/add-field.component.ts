@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-// import { HandbookData } from '../tsfiles/mock-table-data';
 import { HandbookDataExt } from '../tsfiles/mock-table-data-ext';
 
 @Component({
@@ -15,7 +14,9 @@ export class AddFieldComponent implements OnInit {
   }
   onAdd(...params: string[]): void {
     console.log('onAdd');
-    const hde: HandbookDataExt = new HandbookDataExt();
-    hde.debug();
+    HandbookDataExt.debug();
+  }
+  debug(): void {
+    HandbookDataExt.changeRecord(3, ['3','547','streh','qwe123', 'qwe345', 'tyu567', '5687jj', '5g55g5g']);
   }
 }
