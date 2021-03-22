@@ -11,12 +11,20 @@ import { HeaderData } from '../tsfiles/mock-table-data-ext';
   './add-record.component.css']
 })
 export class AddRecordComponent implements OnInit {
-
+  public formFields = {
+    code: '',
+    fullName: '',
+    startDate: '',
+    endDate: '',
+    codeDate: ''
+  };
+  public valid = false;
   public header: HeaderData[] = [];
 
   constructor(private router: Router, private dataService: DataService) { }
 
   ngOnInit(): void {
+    this.validate();
     this.header = this.dataService.getData().header;
   }
 
@@ -28,6 +36,14 @@ export class AddRecordComponent implements OnInit {
     // params.forEach(str => {
     //   console.log(str);
     // });
+  }
+  validate(): void {
+    this.valid = (this.formFields.code.length > 0) && (this.formFields.fullName.length > 0) &&
+      (true);
+    console.log(this.valid);
+  }
+  debug(): void {
+    console.log(this.formFields.code);
   }
   private isoDateToCustom(date: string = '1900-01-01'): string {
     return new Date(date + 'T00:00:00').toLocaleDateString();

@@ -12,6 +12,7 @@
   background-size: cover;
   box-shadow: 0 2px 4px #999;
   cursor: pointer;
+  vertical-align: bottom;
 }
 .action-button:hover:not(.disabled) {
   background-color: var(--soft-grayblue);

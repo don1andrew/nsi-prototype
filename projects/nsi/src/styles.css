@@ -52,7 +52,7 @@ body {
   min-width: 1310px;
   margin: 5px;
 }
-.invalid {
+[class].invalid {
   border: 1px solid red;
   box-shadow: 0 2px 4px #ffa6a6;
 }

@@ -1,14 +1,15 @@
 <!-- <div class="blur"></div> -->
 <section>
     <h1>Добавление нового кода</h1>
-    <form class="fields">
+    <form class="fields" (change)="debug()" (keyup)="validate()">
         <div class="text-input-area">
             <p>Запись верхнего уровня<a name="choose">выбрать</a></p>
             <input type="text" name="" #topLevel disabled>
             <p>Текстовый код</p>
-            <input type="text" name="code" #code>
+<!--            <input type="text" [(ngModel)]="testBind" name="code" #code="ngModel" minlength="5" [class.invalid]="code.invalid && (code.dirty || code.touched)">-->
+            <input type="text" name="code" #code [(ngModel)]="formFields.code">
             <p>Полное наименование</p>
-            <textarea #fullname></textarea>
+            <textarea #fullname [(ngModel)]="formFields.fullName"></textarea>
             <!-- <input type="text" name=""> -->
 <!--            <p>Код РУФР</p>-->
 <!--            <input type="text" name="" #codeRufr> -->
@@ -22,11 +23,11 @@
         </div>
         <div class="date-input-area">
             <p>Дата начала действия записи</p>
-            <input type="date" name="date1" #recordStartDate>
+            <input type="date" name="date1" #recordStartDate [(ngModel)]="formFields.startDate">
             <p>Дата окончания действия записи</p>
-            <input type="date" name="date1" #recordEndDate>
+            <input type="date" name="date1" #recordEndDate [(ngModel)]="formFields.endDate">
             <p>Дата окончания действия кода</p>
-            <input type="date" name="date1" #codeEndDate>
+            <input type="date" name="date1" #codeEndDate [(ngModel)]="formFields.codeDate">
             <ng-container *ngFor="let th of header.slice(7)">
                 <ng-container *ngIf="th.type === 'date'">
                     <p>{{ th.description }}</p>
@@ -36,8 +37,9 @@
         </div>
         <div class="buttons-wrap">
             <a (click)="onAdd('', fullname.value, 'Новая', code.value, recordStartDate.value,
-            recordEndDate.value, codeEndDate.value, topLevel.value)" name="werg" class="filter-button button">Добавить</a>
+            recordEndDate.value, codeEndDate.value, topLevel.value)" name="werg" class="filter-button button" [class.disabled]="!valid">Добавить</a>
             <a routerLink="../" class="filter-button button">Отмена</a>
+          <a (click)="debug()" class="action-button"></a>
         </div>
     </form>
 </section>
