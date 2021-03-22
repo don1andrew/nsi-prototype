@@ -22,7 +22,8 @@ export class HandbookDataExt {
         HandbookDataExt.generateData();
   })();
   private static getMockDate(): string {
-    return new Date(Date.now()-Math.random()*20*365*24*60*60*1000+10*365*24*60*60*1000).toLocaleDateString().replace('-','.');
+    return new Date(Date.now() - Math.random() * 20 * 365 * 24 * 60 * 60 * 1000 + 10 * 365 * 24 * 60 * 60 * 1000)
+      .toLocaleDateString().replace('-', '.');
   }
   private static generateData(rowsCount: number = 45): void {
     this.data.header[0] = { type: 'number', name: 'id', description: 'record\'s id'};
@@ -34,14 +35,14 @@ export class HandbookDataExt {
     this.data.header[6] = { type: 'date', name: 'codeEndDate', description: 'Дата окончания действия кода'};
     this.data.body = [];
     for (let i = 0; i < rowsCount; i++) {
-        let date: number = (Date.now()-Math.random()*20*365*24*60*60*1000+10*365*24*60*60*1000);
+        const date: number = (Date.now() - Math.random()*20*365*24*60*60*1000+10*365*24*60*60*1000);
         this.data.body.push([
             i.toString(),
-            `Запись справочника №${i+1}`,
-            this.status[Math.floor(Math.random()*2)],
-            this.code[Math.floor(Math.random()*2)],
+            `Запись справочника №${i + 1}`,
+            this.status[Math.floor(Math.random() * 2)],
+            this.code[Math.floor(Math.random() * 2)],
             new Date(date).toLocaleDateString(),
-            new Date(date+Math.random()*5*365*24*60*60*1000).toLocaleDateString(),
+            new Date(date + Math.random() * 5 * 365 * 24 * 60 * 60 * 1000).toLocaleDateString(),
             this.getMockDate(),
         ]);
 

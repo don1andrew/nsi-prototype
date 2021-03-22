@@ -13,15 +13,15 @@ import { HeaderData } from '../tsfiles/mock-table-data-ext';
 export class AddRecordComponent implements OnInit {
 
   public header: HeaderData[] = [];
-  
+
   constructor(private router: Router, private dataService: DataService) { }
 
   ngOnInit(): void {
     this.header = this.dataService.getData().header;
   }
 
-  onAdd(...params:string[]): void {
-    this.dataService.addRecord([ params[0], params[1], params[2], params[3], this.isoDateToCustom(params[4]), 
+  onAdd(...params: string[]): void {
+    this.dataService.addRecord([ params[0], params[1], params[2], params[3], this.isoDateToCustom(params[4]),
       this.isoDateToCustom(params[5]), this.isoDateToCustom(params[6]) ]);
     this.router.navigate(['/insurance_types']);
 

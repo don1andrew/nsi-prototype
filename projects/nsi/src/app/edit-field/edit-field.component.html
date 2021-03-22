@@ -1,11 +1,11 @@
-<div class="blur"></div>
+<app-confirm-action (confirmed)="removeField()" (closed)="confirmPopup = false" *ngIf="confirmPopup">Удалить поле?</app-confirm-action>
 <section>
   <h1>Редактирование поля</h1>
   <form class="fields">
     <div class="text-input-area">
       <p>Выбранное поле</p>
       <input type="text" name="field" [(ngModel)]="field.name" disabled>
-      <a (click)="onDelete()" class="action-button remove" title="Удалить поле"></a>
+      <a (click)="onRemove()" class="action-button remove" title="Удалить поле"></a>
       <p>Описание</p>
       <textarea [(ngModel)]="field.description" name="descr"></textarea>
     </div>

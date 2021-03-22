@@ -1,0 +1,15 @@
+section {
+  z-index: 1;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: fit-content;
+  /*background-color: #00bbee;*/
+}
+h1 {
+  font-size: 2em;
+}
+[class][class].buttons-wrap {
+  margin-bottom: 20px;
+}

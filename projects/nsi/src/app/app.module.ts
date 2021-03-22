@@ -11,6 +11,7 @@ import { AddRecordComponent } from './add-record/add-record.component';
 import { EditRecordComponent } from './edit-record/edit-record.component';
 import { AddFieldComponent } from './add-field/add-field.component';
 import { EditFieldComponent } from './edit-field/edit-field.component';
+import { ConfirmActionComponent } from './confirm-action/confirm-action.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { EditFieldComponent } from './edit-field/edit-field.component';
     AddRecordComponent,
     EditRecordComponent,
     AddFieldComponent,
-    EditFieldComponent
+    EditFieldComponent,
+    ConfirmActionComponent
   ],
   imports: [
     BrowserModule,

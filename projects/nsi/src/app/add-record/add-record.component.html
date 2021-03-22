@@ -6,13 +6,13 @@
             <p>Запись верхнего уровня<a name="choose">выбрать</a></p>
             <input type="text" name="" #topLevel disabled>
             <p>Текстовый код</p>
-            <input type="text" name="" #code>
+            <input type="text" name="code" #code>
             <p>Полное наименование</p>
             <textarea #fullname></textarea>
             <!-- <input type="text" name=""> -->
-            <p>Документ, регламентирующий начало действия</p>
-            <!-- <input type="text" name=""> -->
-            <textarea #doc disabled></textarea>
+<!--            <p>Код РУФР</p>-->
+<!--            <input type="text" name="" #codeRufr> -->
+<!--            <textarea #doc disabled></textarea>-->
             <ng-container *ngFor="let th of header.slice(7)">
                 <ng-container *ngIf="th.type !== 'date'">
                     <p>{{ th.description }}</p>
@@ -34,10 +34,10 @@
                 </ng-container>
             </ng-container>
         </div>
-        <div class="buttons-wrap">		
-            <a (click)="onAdd('', fullname.value, 'Новая', code.value, recordStartDate.value, 
+        <div class="buttons-wrap">
+            <a (click)="onAdd('', fullname.value, 'Новая', code.value, recordStartDate.value,
             recordEndDate.value, codeEndDate.value, topLevel.value)" name="werg" class="filter-button button">Добавить</a>
             <a routerLink="../" class="filter-button button">Отмена</a>
         </div>
-    </form>	
+    </form>
 </section>

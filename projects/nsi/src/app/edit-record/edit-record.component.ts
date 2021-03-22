@@ -11,13 +11,12 @@ import { HandbookRow, Fields, HeaderData } from '../tsfiles/mock-table-data-ext'
 })
 export class EditRecordComponent implements OnInit {
 
-  constructor(private router: Router, private dataService: DataService, 
-    private userSession: UserSessionService) { }
+  constructor(private router: Router, private dataService: DataService,
+              private userSession: UserSessionService) { }
 
     // public currentRecord: IHandbookRow = this.dataService.getEmptyRow();
     public currentRecord: HandbookRow = [];
     public header: HeaderData[] = [];
-    
 
   ngOnInit(): void {
     this.header = this.dataService.getData().header;
@@ -34,7 +33,7 @@ export class EditRecordComponent implements OnInit {
   }
 
   onEdit(...params: string[]): void {
-    var rec = Object.assign({}, this.currentRecord);
+    const rec = Object.assign({}, this.currentRecord);
     rec[Fields.recordStartDate] = this.isoDateToCustom(rec[Fields.recordStartDate]);
     rec[Fields.recordEndDate] = this.isoDateToCustom(rec[Fields.recordEndDate]);
     rec[Fields.codeEndDate] = this.isoDateToCustom(rec[Fields.codeEndDate]);
@@ -42,8 +41,8 @@ export class EditRecordComponent implements OnInit {
     this.router.navigate(['/insurance_types']);
   }
   private customDateToISO(date: string): string {
-    return new Date(parseInt(date.substring(6, 10)), parseInt(date.substring(3, 7)) - 1,
-        parseInt(date.substring(0, 2))).toISOString().substring(0,10);
+    return new Date(parseInt(date.substring(6, 10), 10), parseInt(date.substring(3, 7), 10) - 1,
+        parseInt(date.substring(0, 2), 10) + 1).toISOString().substring(0, 10);
   }
   private isoDateToCustom(date: string): string {
     return new Date(date + 'T00:00:00').toLocaleDateString();

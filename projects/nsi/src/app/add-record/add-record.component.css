@@ -33,7 +33,9 @@ form > div {
 	display: inline-block;
 	vertical-align: top;
 	margin: 0 20px;
-
+}
+.text-input-area {
+  width: 300px;
 }
 form p {
 	margin: 10px 0px 2px 0px;

@@ -32,10 +32,10 @@ export class DataService {
       HandbookDataExt.addField(name, type, description);
     }
     editField(id: number | null, field: HeaderData): void {
-      if (id !== null ) { HandbookDataExt.editField(id, field) };
+      if (id !== null ) { HandbookDataExt.editField(id, field); }
     }
     deleteField(id: number | null): void {
-      if (id !== null ) { HandbookDataExt.deleteField(id) };
+      if (id !== null ) { HandbookDataExt.deleteField(id); }
     }
     getEmptyRow(): HandbookRow {
       // return { id: 0,

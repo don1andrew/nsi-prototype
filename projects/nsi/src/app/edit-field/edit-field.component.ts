@@ -12,12 +12,13 @@ import { HeaderData } from '../tsfiles/mock-table-data-ext';
 export class EditFieldComponent implements OnInit {
 
   public field!: HeaderData;
+  public confirmPopup = false;
 
   constructor(private router: Router, private userSession: UserSessionService, private dataService: DataService) { }
 
   ngOnInit(): void {
     const id = this.userSession.getFieldId();
-    if (id !=null) {
+    if (id !== null) {
       this.field = this.dataService.getField(id);
     }
   }
@@ -25,7 +26,10 @@ export class EditFieldComponent implements OnInit {
     this.dataService.editField(this.userSession.getFieldId(), this.field);
     this.router.navigate(['/insurance_types']);
   }
-  onDelete(): void {
+  onRemove(): void {
+    this.confirmPopup = true;
+  }
+  removeField(): void {
     this.dataService.deleteField(this.userSession.getFieldId());
     this.router.navigate(['/insurance_types']);
   }

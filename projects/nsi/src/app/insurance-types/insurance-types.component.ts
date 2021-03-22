@@ -30,6 +30,7 @@ export class InsuranceTypesComponent implements OnInit {
     activeTo: '',
   };
   buttonsDisabled = { edit: true, remove: true };
+  confirmPopup =  false;
 
   constructor(private dataService: DataService, private userSession: UserSessionService) { }
 
@@ -122,7 +123,10 @@ export class InsuranceTypesComponent implements OnInit {
   }
 
 
-  onRemove(elem: HTMLTableSectionElement): void {
+  onRemove(): void {
+    this.confirmPopup = true;
+  }
+  removeRecords(): void {
     const ch = document.querySelectorAll('[type="checkbox"]:checked');
     const rm: number[] = [];
     ch.forEach(element => {
@@ -207,7 +211,7 @@ export class InsuranceTypesComponent implements OnInit {
     this.buttonsDisabled.remove = c.length === 0;
   }
   public debug(): void {
-    this.dataService.deleteField(6);
+    this.confirmPopup = true;
   }
 
 }
