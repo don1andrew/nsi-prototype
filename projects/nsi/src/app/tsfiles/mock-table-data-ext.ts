@@ -8,7 +8,7 @@ export interface HandbookData {
   header: HeaderData[];
   body: HandbookRow[];
 }
-export enum Fields { id, fullname, recordStatus, code, recordStartDate, recordEndDate, codeEndDate }
+export enum Fields { id, parentId, fullname, recordStatus, code, recordStartDate, recordEndDate, codeEndDate }
 
 export class HandbookDataExt {
   private static data: HandbookData = { header: [], body: [] };
@@ -25,19 +25,21 @@ export class HandbookDataExt {
     return new Date(Date.now() - Math.random() * 20 * 365 * 24 * 60 * 60 * 1000 + 10 * 365 * 24 * 60 * 60 * 1000)
       .toLocaleDateString().replace('-', '.');
   }
-  private static generateData(rowsCount: number = 45): void {
+  private static generateData(rowsCount: number = 8): void {
     this.data.header[0] = { type: 'number', name: 'id', description: 'record\'s id'};
-    this.data.header[1] = { type: 'string', name: 'fullname', description: 'Полное наименование'};
-    this.data.header[2] = { type: 'string', name: 'recordStatus', description: 'Статус записи'};
-    this.data.header[3] = { type: 'string', name: 'code', description: 'Код РУФР'};
-    this.data.header[4] = { type: 'date', name: 'recordStartDate', description: 'Дата начала действия записи'};
-    this.data.header[5] = { type: 'date', name: 'recordEndDate', description: 'Дата окончания действия записи'};
-    this.data.header[6] = { type: 'date', name: 'codeEndDate', description: 'Дата окончания действия кода'};
+    this.data.header[1] = { type: 'number', name: 'parentId', description: 'record\'s parent id'};
+    this.data.header[2] = { type: 'string', name: 'fullname', description: 'Полное наименование'};
+    this.data.header[3] = { type: 'string', name: 'recordStatus', description: 'Статус записи'};
+    this.data.header[4] = { type: 'string', name: 'code', description: 'Код РУФР'};
+    this.data.header[5] = { type: 'date', name: 'recordStartDate', description: 'Дата начала действия записи'};
+    this.data.header[6] = { type: 'date', name: 'recordEndDate', description: 'Дата окончания действия записи'};
+    this.data.header[7] = { type: 'date', name: 'codeEndDate', description: 'Дата окончания действия кода'};
     this.data.body = [];
     for (let i = 0; i < rowsCount; i++) {
         const date: number = (Date.now() - Math.random()*20*365*24*60*60*1000+10*365*24*60*60*1000);
         this.data.body.push([
             i.toString(),
+            '',
             `Запись справочника №${i + 1}`,
             this.status[Math.floor(Math.random() * 2)],
             this.code[Math.floor(Math.random() * 2)],
@@ -55,9 +57,9 @@ export class HandbookDataExt {
     return this.data;
   }
   static addRecord(record: HandbookRow): void {
-    record[0] = (this.data.body.slice(-1)[0][0]+1).toString();
+    record[0] = (parseInt(this.data.body.slice(-1)[0][0])+1).toString();
     this.data.body.push(record);
-    // console.log(this.data);
+    console.log(this.data);
   }
   static getRecord(id: number): HandbookRow {
     const idx = this.data.body.findIndex(el => el[0] === id.toString());

@@ -36,6 +36,9 @@ form > div {
 form p {
 	margin: 10px 0px 2px 0px;
 }
+.dropdown {
+	width: 100%;
+}
 [name="choose"] {
 	margin-right: 0;
 	float: right;

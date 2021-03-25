@@ -1,20 +1,24 @@
 <!-- <div class="blur"></div> -->
 <section>
     <h1>Добавление нового кода</h1>
-    <form class="fields" (change)="debug()" (keyup)="validate()">
+    <form class="fields" (change)="validate()" (keyup)="validate()">
         <div class="text-input-area">
-            <p>Запись верхнего уровня<a name="choose">выбрать</a></p>
-            <input type="text" name="" #topLevel disabled>
-            <p>Текстовый код</p>
+            <p>Запись верхнего уровня</p>
+            <!-- <input type="text" name="" #topLevel disabled> -->
+            <select class="dropdown" #parent>
+                <option></option>
+                <option *ngFor="let el of getRecords()" [id]="el[0]">{{ el[2] }}</option>
+              </select>
+            <p>Код РУФР</p>
 <!--            <input type="text" [(ngModel)]="testBind" name="code" #code="ngModel" minlength="5" [class.invalid]="code.invalid && (code.dirty || code.touched)">-->
             <input type="text" name="code" #code [(ngModel)]="formFields.code">
             <p>Полное наименование</p>
-            <textarea #fullname [(ngModel)]="formFields.fullName"></textarea>
+            <textarea name="txt" #fullname [(ngModel)]="formFields.fullName"></textarea>
             <!-- <input type="text" name=""> -->
 <!--            <p>Код РУФР</p>-->
 <!--            <input type="text" name="" #codeRufr> -->
 <!--            <textarea #doc disabled></textarea>-->
-            <ng-container *ngFor="let th of header.slice(7)">
+            <ng-container *ngFor="let th of header.slice(8)">
                 <ng-container *ngIf="th.type !== 'date'">
                     <p>{{ th.description }}</p>
                     <textarea disabled></textarea>
@@ -28,7 +32,7 @@
             <input type="date" name="date1" #recordEndDate [(ngModel)]="formFields.endDate">
             <p>Дата окончания действия кода</p>
             <input type="date" name="date1" #codeEndDate [(ngModel)]="formFields.codeDate">
-            <ng-container *ngFor="let th of header.slice(7)">
+            <ng-container *ngFor="let th of header.slice(8)">
                 <ng-container *ngIf="th.type === 'date'">
                     <p>{{ th.description }}</p>
                     <input type="date" name="date1" disabled>
@@ -36,10 +40,10 @@
             </ng-container>
         </div>
         <div class="buttons-wrap">
-            <a (click)="onAdd('', fullname.value, 'Новая', code.value, recordStartDate.value,
-            recordEndDate.value, codeEndDate.value, topLevel.value)" name="werg" class="filter-button button" [class.disabled]="!valid">Добавить</a>
+            <a (click)="onAdd('', parent.selectedOptions[0].id, fullname.value, 'Новая', code.value, recordStartDate.value,
+            recordEndDate.value, codeEndDate.value, parent.value)" name="werg" class="filter-button button" [class.disabled]="!valid">Добавить</a>
             <a routerLink="../" class="filter-button button">Отмена</a>
-          <a (click)="debug()" class="action-button"></a>
+          <!-- <a (click)="debug(parent)" class="action-button"></a> -->
         </div>
     </form>
 </section>

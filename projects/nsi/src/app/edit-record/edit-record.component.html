@@ -1,19 +1,18 @@
 <!-- <div class="blur"></div> -->
 <section>
     <h1>Редактирование кода</h1>
-    <form class="fields">
+    <form class="fields" (change)="validate()" (keyup)="validate()">
         <div class="text-input-area">
-            <p>Запись верхнего уровня<a name="choose">выбрать</a></p>
-            <input type="text" name="" #topLevel disabled>
-            <p>Текстовый код</p>
-            <input [(ngModel)]="currentRecord[3]" type="text" name="code" #code>
+            <p>Запись верхнего уровня</p>
+            <select class="dropdown" #parent>
+                <option></option>
+                <option *ngFor="let el of getRecords()" [id]="el[0]">{{ el[2] }}</option>
+              </select>
+            <p>Код РУФР</p>
+            <input [(ngModel)]="currentRecord[4]" type="text" name="code" #code>
             <p>Полное наименование</p>
-            <textarea [(ngModel)]="currentRecord[1]" #fullname name="full"></textarea>
-            <!-- <input type="text" name=""> -->
-            <p>Документ, регламентирующий начало действия</p>
-            <!-- <input type="text" name=""> -->
-            <textarea name="text" #doc disabled></textarea>
-            <ng-container *ngFor="let th of header.slice(7)">
+            <textarea [(ngModel)]="currentRecord[2]" #fullname name="full"></textarea>
+            <ng-container *ngFor="let th of header.slice(8)">
                 <ng-container *ngIf="th.type !== 'date'">
                     <p>{{ th.description }}</p>
                     <textarea disabled></textarea>
@@ -22,12 +21,12 @@
         </div>
         <div class="date-input-area">
             <p>Дата начала действия записи</p>
-            <input [(ngModel)]="currentRecord[4]" type="date" name="date1" #recordStartDate>
+            <input [(ngModel)]="currentRecord[5]" type="date" name="date1" #recordStartDate>
             <p>Дата окончания действия записи</p>
-            <input [(ngModel)]="currentRecord[5]" type="date" name="date2" #recordEndDate>
+            <input [(ngModel)]="currentRecord[6]" type="date" name="date2" #recordEndDate>
             <p>Дата окончания действия кода</p>
-            <input [(ngModel)]="currentRecord[6]" type="date" name="date3" #codeEndDate>
-            <ng-container *ngFor="let th of header.slice(7)">
+            <input [(ngModel)]="currentRecord[7]" type="date" name="date3" #codeEndDate>
+            <ng-container *ngFor="let th of header.slice(8)">
                 <ng-container *ngIf="th.type === 'date'">
                     <p>{{ th.description }}</p>
                     <input type="date" name="date1" disabled>
@@ -35,9 +34,10 @@
             </ng-container>
         </div>
         <div class="buttons-wrap">		
-            <a (click)="onEdit(topLevel.value, code.value, fullname.value, recordStartDate.value, 
-            recordEndDate.value, codeEndDate.value)" class="filter-button button">Сохранить</a>
+            <a (click)="onEdit('', parent.selectedOptions[0].id, code.value, fullname.value, recordStartDate.value, 
+            recordEndDate.value, codeEndDate.value)" class="filter-button button" [class.disabled]="!valid">Сохранить</a>
             <a routerLink="../" class="filter-button button">Отмена</a>
+            <!-- <a (click)="debug()" class="action-button"></a> -->
         </div>
     </form>	
 </section>

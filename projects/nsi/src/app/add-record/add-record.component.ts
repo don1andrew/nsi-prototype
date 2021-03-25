@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { DataService } from '../SERVICES/data.service';
-import { HeaderData } from '../tsfiles/mock-table-data-ext';
+import { HeaderData, Fields, HandbookRow } from '../tsfiles/mock-table-data-ext';
+import { Validation } from '../tsfiles/validation';
 
 @Component({
   selector: 'app-add-record',
@@ -19,6 +20,7 @@ export class AddRecordComponent implements OnInit {
     codeDate: ''
   };
   public valid = false;
+  // public parentId = '';
   public header: HeaderData[] = [];
 
   constructor(private router: Router, private dataService: DataService) { }
@@ -29,21 +31,23 @@ export class AddRecordComponent implements OnInit {
   }
 
   onAdd(...params: string[]): void {
-    this.dataService.addRecord([ params[0], params[1], params[2], params[3], this.isoDateToCustom(params[4]),
-      this.isoDateToCustom(params[5]), this.isoDateToCustom(params[6]) ]);
+    this.dataService.addRecord([ params[Fields.id], params[Fields.parentId], params[Fields.fullname], params[Fields.recordStatus], 
+      params[Fields.code], this.isoDateToCustom(params[Fields.recordStartDate]),
+      this.isoDateToCustom(params[Fields.recordEndDate]), this.isoDateToCustom(params[Fields.codeEndDate]) ]);
     this.router.navigate(['/insurance_types']);
 
     // params.forEach(str => {
     //   console.log(str);
     // });
   }
-  validate(): void {
-    this.valid = (this.formFields.code.length > 0) && (this.formFields.fullName.length > 0) &&
-      (true);
-    console.log(this.valid);
+  getRecords(): HandbookRow[] {
+    return this.dataService.getData().body.slice();
   }
-  debug(): void {
-    console.log(this.formFields.code);
+  validate(): void {
+    this.valid = Validation.validate(this.formFields);
+  }
+  debug(el: HTMLSelectElement): void {
+    console.log(el.selectedOptions[0].id);
   }
   private isoDateToCustom(date: string = '1900-01-01'): string {
     return new Date(date + 'T00:00:00').toLocaleDateString();

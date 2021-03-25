@@ -56,7 +56,7 @@
 <table>
   <thead>
     <tr>
-      <th *ngFor="let th of tableHeader.slice(1); let i=index" [id]="th.name">
+      <th *ngFor="let th of tableHeader.slice(2); let i=index" [id]="th.name">
         <a routerLink="edit-field" (click)="onEditField(i+1)" class="action-button edit" title="Изменить поле"></a>
         {{ th.description }}
       </th>
@@ -72,7 +72,7 @@
   </thead>
   <tbody #tableBody>
     <tr *ngFor="let tr of displayData">
-      <td *ngFor="let td of tr.slice(1); let i=index">
+      <td *ngFor="let td of tr.slice(2); let i=index">
         <ng-container *ngIf="i === 0">
           <input type="checkbox" [id]="tr[0]" (change)="onCheckboxChange()">
           <label [for]="tr[0]"></label>
