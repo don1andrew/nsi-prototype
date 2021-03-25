@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 
 import { HandbookDataExt, HandbookRow, HandbookData, HeaderData } from '../tsfiles/mock-table-data-ext';
 
@@ -7,7 +9,7 @@ import { HandbookDataExt, HandbookRow, HandbookData, HeaderData } from '../tsfil
 })
 
 export class DataService {
-
+    private dataUrl = 'api/data';
     // private data!: HandbookData;
 
     getData(rows: number = 45): HandbookData {
@@ -48,5 +50,12 @@ export class DataService {
       // };
       return [];
     }
-    constructor() {}
+
+    testHttp(): Observable<HandbookData> {
+      return this.http.get<HandbookData>('this.dataUrl');
+    }
+    testGetHttp(id: number): Observable<HandbookRow> {
+      return this.http.get<HandbookRow>('this.dataUrl');
+    }
+    constructor(private http: HttpClient) {}
 }

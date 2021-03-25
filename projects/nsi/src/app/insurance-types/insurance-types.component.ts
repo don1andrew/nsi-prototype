@@ -4,6 +4,10 @@ import { DataService } from '../SERVICES/data.service';
 import { UserSessionService } from '../SERVICES/user-session.service';
 import { HandbookDataExt, HandbookRow, HeaderData } from '../tsfiles/mock-table-data-ext';
 
+import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+
 
 @Component({
   selector: 'app-insurance-types',
@@ -32,7 +36,9 @@ export class InsuranceTypesComponent implements OnInit {
   buttonsDisabled = { edit: true, remove: true };
   confirmPopup =  false;
 
-  constructor(private dataService: DataService, private userSession: UserSessionService) { }
+
+
+  constructor(private http: HttpClient, private dataService: DataService, private userSession: UserSessionService) { }
 
   ngOnInit(): void {
     this.session.currentUser = this.userSession.getCurrentUser();
@@ -211,7 +217,12 @@ export class InsuranceTypesComponent implements OnInit {
     this.buttonsDisabled.remove = c.length === 0;
   }
   public debug(): void {
-    this.confirmPopup = true;
+    let d = {};
+    this.dataService.testHttp().subscribe(el => {
+      console.log(el)
+    });
+    // writeFile('./datafile.txt', JSON.stringify({id: 12, name: 'dj'}), 'utf-8', () => {});
+    console.log('deb');
   }
 
 }

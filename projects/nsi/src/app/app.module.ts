@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +14,9 @@ import { AddFieldComponent } from './add-field/add-field.component';
 import { EditFieldComponent } from './edit-field/edit-field.component';
 import { ConfirmActionComponent } from './confirm-action/confirm-action.component';
 
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api'
+import { InMemoryDataService } from './SERVICES/in-memory-data.service'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,12 +27,16 @@ import { ConfirmActionComponent } from './confirm-action/confirm-action.componen
     EditRecordComponent,
     AddFieldComponent,
     EditFieldComponent,
-    ConfirmActionComponent
+    ConfirmActionComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule,
+    HttpClientInMemoryWebApiModule.forRoot(
+      InMemoryDataService, { dataEncapsulation: false })
   ],
   providers: [],
   bootstrap: [AppComponent]
