@@ -19,14 +19,14 @@ export class InMemoryDataService implements InMemoryDbService {
         data.header[5] = { type: 'date', name: 'recordStartDate', description: 'Дата начала действия записи'};
         data.header[6] = { type: 'date', name: 'recordEndDate', description: 'Дата окончания действия записи'};
         data.header[7] = { type: 'date', name: 'codeEndDate', description: 'Дата окончания действия кода'};
-        
+
         data.body[0] = ['0', '', 'Record #1', 'New', 'IR_P', '01.02.2020', '02.02.2020', '04.05.2021'];
         data.body[1] = ['1', '', 'Record #2', 'New', 'IR_P', '01.02.2020', '02.03.2020', '03.05.2021'];
         data.body[2] = ['2', '1', 'Record #3', 'New', 'IR_P', '01.02.2020', '06.02.2020', '05.05.2021'];
         data.body[3] = ['3', '', 'Record #4', 'New', 'IR_P', '01.02.2020', '07.02.2020', '06.05.2021'];
         return {data};
     }
-    genId(data: HandbookData): number {
-        return (parseInt(data.body.slice(-1)[0][0])+1);
-    }
+    // genId(data: HandbookData): number {
+    //     return (parseInt(data.body.slice(-1)[0][0])+1);
+    // }
 }

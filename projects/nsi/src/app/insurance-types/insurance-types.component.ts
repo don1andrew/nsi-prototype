@@ -217,12 +217,10 @@ export class InsuranceTypesComponent implements OnInit {
     this.buttonsDisabled.remove = c.length === 0;
   }
   public debug(): void {
-    let d = {};
-    this.dataService.testHttp().subscribe(el => {
-      console.log(el)
-    });
-    // writeFile('./datafile.txt', JSON.stringify({id: 12, name: 'dj'}), 'utf-8', () => {});
-    console.log('deb');
+    const d = {};
+    this.dataService.getDataHttp().subscribe(el => { console.log(el); });
+    // this.dataService.getRecordHttp(1).subscribe(el => console.log(el));
+    // this.dataService.testHttp(0).subscribe(el => console.log(el));
   }
 
 }
