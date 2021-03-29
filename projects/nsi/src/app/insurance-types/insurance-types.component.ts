@@ -1,8 +1,8 @@
 import { AfterViewChecked, Component, OnChanges, OnInit } from '@angular/core';
 
-import { DataService } from '../SERVICES/data.service';
+import { DataServiceHttp } from '../SERVICES/data.service';
 import { UserSessionService } from '../SERVICES/user-session.service';
-import { HandbookDataExt, HandbookRow, HeaderData } from '../tsfiles/mock-table-data-ext';
+import { HandbookData, HandbookRow, HeaderData, Fields } from '../tsfiles/mock-table-data-ext';
 
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -38,20 +38,24 @@ export class InsuranceTypesComponent implements OnInit {
 
 
 
-  constructor(private http: HttpClient, private dataService: DataService, private userSession: UserSessionService) { }
+  constructor(private http: HttpClient, private dataService: DataServiceHttp, private userSession: UserSessionService) { }
 
   ngOnInit(): void {
     this.session.currentUser = this.userSession.getCurrentUser();
     this.session.currentRole = this.userSession.getCurrentRole();
-    this.tableHeader = this.dataService.getData().header.slice();
-    this.tableData = this.dataService.getData().body.slice();
-    this.filteredData = this.tableData;
-    this.displayData = this.filteredData.slice(0, this.tableNav.rows);
-    this.tableNav.max = Math.ceil(this.filteredData.length / this.tableNav.rows);
-    this.info = `Всего записей: ${this.filteredData.length}`;
+    let data!: HandbookData;
+    this.dataService.getData().subscribe(d => {
+      data = d;
+      this.tableHeader = d.header.slice();
+      this.tableData = d.body.slice();
+      this.filteredData = this.tableData;
+      this.displayData = this.filteredData.slice(0, this.tableNav.rows);
+      this.tableNav.max = Math.ceil(this.filteredData.length / this.tableNav.rows);
+      this.info = `Всего записей: ${this.filteredData.length}`;
 
-    console.log('init insurance');
-
+      console.log('init insurance');
+      console.log(this.filteredData);
+    });
   }
   onApplyFilters(): void {
     console.log(this.filters);
@@ -60,7 +64,7 @@ export class InsuranceTypesComponent implements OnInit {
     // record
     if (this.filters.recordStatus !== 'Все') {
       this.filteredData = this.filteredData
-      .filter(e => (e[2] === this.filters.recordStatus));
+      .filter(e => (e[Fields.recordStatus] === this.filters.recordStatus));
     }
 
     // code
@@ -68,10 +72,10 @@ export class InsuranceTypesComponent implements OnInit {
       this.filteredData = this.filteredData
       .filter(e => {
         if ('Введен' === this.filters.codeStatus) {
-          return (1 === this.compareDateStringToNow(e[6]));
+          return (1 === this.compareDateStringToNow(e[Fields.codeEndDate]));
         }
         if ('Закрыт' === this.filters.codeStatus) {
-          return (-1 === this.compareDateStringToNow(e[6]));
+          return (-1 === this.compareDateStringToNow(e[Fields.codeEndDate]));
         }
         return false;
       });
@@ -81,13 +85,13 @@ export class InsuranceTypesComponent implements OnInit {
     if (this.filters.activeFrom !== '') {
       this.filteredData = this.filteredData.filter(e => {
         return (new Date(this.filters.activeFrom + 'T00:00:00').getTime() <=
-          this.dateFromCustomString(e[4]).getTime());
+          this.dateFromCustomString(e[Fields.recordStartDate]).getTime());
       });
     }
     if (this.filters.activeTo !== '') {
       this.filteredData = this.filteredData.filter(e => {
         return (new Date(this.filters.activeTo + 'T00:00:00').getTime() >=
-          this.dateFromCustomString(e[5]).getTime());
+          this.dateFromCustomString(e[Fields.recordEndDate]).getTime());
       });
     }
 
@@ -119,7 +123,7 @@ export class InsuranceTypesComponent implements OnInit {
       this.info = `Всего записей: ${this.filteredData.length}`;
     } else {
       this.filteredData = this.tableData.filter(elem => {
-        return elem[1].search(new RegExp(text, 'i')) !== -1;
+        return elem[Fields.fullname].search(new RegExp(text, 'i')) !== -1;
       });
       this.info = `Найдено записей: ${this.filteredData.length}`;
     }
@@ -138,7 +142,7 @@ export class InsuranceTypesComponent implements OnInit {
     ch.forEach(element => {
       rm.push(parseInt(element.id, 10));
     });
-    this.dataService.deleteRecords(rm);
+    // this.dataService.deleteRecords(rm);
     this.ngOnInit();
     this.buttonsDisabled = { edit: true, remove: true };
     this.setTablePage(this.tableNav.current);
@@ -218,7 +222,7 @@ export class InsuranceTypesComponent implements OnInit {
   }
   public debug(): void {
     const d = {};
-    this.dataService.getDataHttp().subscribe(el => { console.log(el); });
+    // this.dataService.getDataHttp().subscribe(el => { console.log(el); });
     // this.dataService.getRecordHttp(1).subscribe(el => console.log(el));
     // this.dataService.testHttp(0).subscribe(el => console.log(el));
   }

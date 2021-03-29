@@ -10,7 +10,7 @@ import { HandbookDataExt, HandbookRow, HandbookData, HeaderData } from '../tsfil
 })
 
 export class DataService {
-    private dataUrl = 'api/data';
+    private baseUrl = 'http://localhost:3003/';
     // private data!: HandbookData;
 
     getData(rows: number = 45): HandbookData {
@@ -53,7 +53,7 @@ export class DataService {
     }
 
     getDataHttp(): Observable<HandbookData> {
-      return this.http.get<HandbookData>(`http://localhost:3003/${this.dataUrl}`)
+      return this.http.get<HandbookData>(`${this.baseUrl}api/data`)
         .pipe(
           tap(_ => console.log('http get data')),
           // catchError(this.hdl)
@@ -62,7 +62,7 @@ export class DataService {
     }
     // catchError при ошибке подменяет неудачный Observable своим
     getRecordHttp(id: number): Observable<HandbookRow> {
-      const url = `${this.dataUrl}/${id}`;
+      const url = `${this.baseUrl}/${id}`;
       return this.http.get<HandbookRow>(url)
         .pipe(
           tap(_ => console.log('http get record')),
@@ -70,7 +70,7 @@ export class DataService {
         );
     }
     testHttp(id: number): Observable<any> {
-      return this.http.get<any>(`localhost:3003/${this.dataUrl}`);
+      return this.http.get<any>(`${this.baseUrl}api/data`);
     }
     private hdl(): Observable<HandbookData> {
       return of({header: ['1', 'tets'], body: ['00', '0oo0o']} as unknown as HandbookData);
@@ -83,4 +83,25 @@ export class DataService {
       };
     }
     constructor(private http: HttpClient) {}
+}
+@Injectable({
+  providedIn: 'root',
+})
+export class DataServiceHttp {
+  private baseUrl = 'http://localhost:3003/';
+  getData(): Observable<HandbookData> {
+    return this.http.get<HandbookData>(`${this.baseUrl}api/data`)
+      .pipe(
+        tap(_ => console.log('http get data')),
+        // catchError(this.handleError<HandbookData>('get data', {header: [], body: []}))
+      );
+  }
+  addRecord(record: HandbookRow): Observable<any> {
+    return this.http.post(`${this.baseUrl}api/data/record`, record)
+      .pipe(
+        tap(_ => console.log('http post data')),
+        // catchError(this.handleError<HandbookRow>('add record', []));
+      );
+  }
+  constructor(private http: HttpClient) {}
 }

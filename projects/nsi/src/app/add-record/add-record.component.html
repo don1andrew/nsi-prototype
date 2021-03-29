@@ -7,7 +7,7 @@
             <!-- <input type="text" name="" #topLevel disabled> -->
             <select class="dropdown" #parent>
                 <option></option>
-                <option *ngFor="let el of getRecords()" [id]="el[0]">{{ el[2] }}</option>
+                <option *ngFor="let el of body" [id]="el[0]">{{ el[2] }}</option>
               </select>
             <p>Код РУФР</p>
 <!--            <input type="text" [(ngModel)]="testBind" name="code" #code="ngModel" minlength="5" [class.invalid]="code.invalid && (code.dirty || code.touched)">-->
