@@ -10,7 +10,8 @@ import { HandbookDataExt, HandbookRow, HandbookData, HeaderData } from '../tsfil
 })
 
 export class DataService {
-    private baseUrl = 'http://localhost:3003/';
+    // private baseUrl = 'http://localhost:3003/';
+    private baseUrl = 'http://localhost:8080/';
     // private data!: HandbookData;
 
     getData(rows: number = 45): HandbookData {
@@ -88,7 +89,8 @@ export class DataService {
   providedIn: 'root',
 })
 export class DataServiceHttp {
-  private baseUrl = 'http://localhost:3003/';
+  // private baseUrl = 'http://localhost:3003/';
+  private baseUrl = 'http://localhost:8080/';
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   getData(): Observable<HandbookData> {
     return this.http.get<HandbookData>(`${this.baseUrl}api/data`)

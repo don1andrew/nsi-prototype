@@ -14,9 +14,6 @@ import { AddFieldComponent } from './add-field/add-field.component';
 import { EditFieldComponent } from './edit-field/edit-field.component';
 import { ConfirmActionComponent } from './confirm-action/confirm-action.component';
 
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api'
-import { InMemoryDataService } from './SERVICES/in-memory-data.service'
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +31,6 @@ import { InMemoryDataService } from './SERVICES/in-memory-data.service'
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    HttpClientInMemoryWebApiModule
   ],
   providers: [],
   bootstrap: [AppComponent]
