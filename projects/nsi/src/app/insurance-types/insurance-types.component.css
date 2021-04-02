@@ -152,6 +152,7 @@ th, td {
   border-bottom: 1px solid var(--note-gray);
   border-right: 1px solid var(--note-gray);
   padding: 0 10px;
+  overflow: hidden;
 }
 th:nth-child(1) {
   width: 35%;

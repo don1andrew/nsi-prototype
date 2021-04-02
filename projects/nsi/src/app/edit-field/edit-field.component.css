@@ -1,3 +1,9 @@
+a.disabled {
+  /*filter: saturate(50%);*/
+  opacity: .3;
+  cursor: default;
+  pointer-events: none;
+}
 .remove { background-image: var(--icon-remove);
   vertical-align: bottom;
   margin: 0 0 0 7px;

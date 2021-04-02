@@ -10,7 +10,7 @@
       <textarea [(ngModel)]="field.description" name="descr"></textarea>
     </div>
     <div class="buttons-wrap">
-      <a (click)="onEdit()" name="werg" class="filter-button button">Сохранить</a>
+      <a (click)="valid = false; onEdit()" name="werg" class="filter-button button" [class.disabled]="!valid">Сохранить</a>
       <a routerLink="../" class="filter-button button">Отмена</a>
     </div>
   </form>

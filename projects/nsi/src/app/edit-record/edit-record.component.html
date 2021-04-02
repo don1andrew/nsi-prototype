@@ -6,7 +6,7 @@
             <p>Запись верхнего уровня</p>
             <select class="dropdown" #parent>
                 <option></option>
-                <option *ngFor="let el of getRecords()" [id]="el[0]">{{ el[2] }}</option>
+                <option *ngFor="let el of body" [id]="el[0]">{{ el[2] }}</option>
               </select>
             <p>Код РУФР</p>
             <input [(ngModel)]="currentRecord[4]" type="text" name="code" #code>
@@ -33,11 +33,11 @@
                 </ng-container>
             </ng-container>
         </div>
-        <div class="buttons-wrap">		
-            <a (click)="onEdit('', parent.selectedOptions[0].id, code.value, fullname.value, recordStartDate.value, 
+        <div class="buttons-wrap">
+            <a (click)="onEdit('', parent.selectedOptions[0].id, code.value, fullname.value, recordStartDate.value,
             recordEndDate.value, codeEndDate.value)" class="filter-button button" [class.disabled]="!valid">Сохранить</a>
             <a routerLink="../" class="filter-button button">Отмена</a>
             <!-- <a (click)="debug()" class="action-button"></a> -->
         </div>
-    </form>	
+    </form>
 </section>

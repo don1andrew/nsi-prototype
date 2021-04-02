@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataService } from '../SERVICES/data.service';
+import { DataServiceHttp } from '../SERVICES/data.service';
 import { HandbookDataExt } from '../tsfiles/mock-table-data-ext';
 
 @Component({
@@ -10,14 +10,16 @@ import { HandbookDataExt } from '../tsfiles/mock-table-data-ext';
 })
 export class AddFieldComponent implements OnInit {
 
-  constructor(private router: Router, private dataService: DataService) { }
+  public valid = true;
+  constructor(private router: Router, private dataService: DataServiceHttp) { }
 
   ngOnInit(): void {
   }
   onAdd(...params: string[]): void {
     const type = (params[1] === 'Дата') ? 'date' : 'string';
-    this.dataService.addField(params[0], type, params[2]);
-    this.router.navigate(['/insurance_types']);
+    this.dataService.addField(params[0], type, params[2]).subscribe(el => {
+    });
+      // this.router.navigate(['/insurance_types']);
     console.log(params);
   }
   debug(): void {

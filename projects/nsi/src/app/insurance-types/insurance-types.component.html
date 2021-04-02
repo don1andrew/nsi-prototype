@@ -57,7 +57,7 @@
   <thead>
     <tr>
       <th *ngFor="let th of tableHeader.slice(2); let i=index" [id]="th.name">
-        <a routerLink="edit-field" (click)="onEditField(i+1)" class="action-button edit" title="Изменить поле"></a>
+        <a routerLink="edit-field" (click)="onEditField(i+2)" class="action-button edit" title="Изменить поле"></a>
         {{ th.description }}
       </th>
     </tr>

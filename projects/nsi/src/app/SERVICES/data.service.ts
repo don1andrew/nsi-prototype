@@ -89,6 +89,7 @@ export class DataService {
 })
 export class DataServiceHttp {
   private baseUrl = 'http://localhost:3003/';
+  private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   getData(): Observable<HandbookData> {
     return this.http.get<HandbookData>(`${this.baseUrl}api/data`)
       .pipe(
@@ -96,12 +97,67 @@ export class DataServiceHttp {
         // catchError(this.handleError<HandbookData>('get data', {header: [], body: []}))
       );
   }
+  getRecord(id: number): Observable<HandbookRow> {
+    return this.http.get<HandbookRow>(`${this.baseUrl}api/data/${id}`);
+  }
   addRecord(record: HandbookRow): Observable<any> {
-    return this.http.post(`${this.baseUrl}api/data/record`, record)
+    return this.http.post(`${this.baseUrl}api/data/record`, record, { headers: this.headers })
       .pipe(
         tap(_ => console.log('http post data')),
         // catchError(this.handleError<HandbookRow>('add record', []));
       );
+  }
+  editRecord(id: number | null, record: HandbookRow): Observable<any> {
+    return this.http.put(`${this.baseUrl}api/data/${id}`, record,  { headers: this.headers })
+    .pipe(
+      tap(_ => console.log('http put data')),
+      // catchError(this.handleError<any>('add record', 'intercepted result'))
+    );
+    // if (id !== null ) { HandbookDataExt.editRecord(id, record); }
+  }
+  deleteRecords(ids: number[]): Observable<any> {
+    return this.http.request('delete', `${this.baseUrl}api/data`, {
+      body: ids,
+      headers: this.headers,
+      // observe: JSON.stringify(ids) as unknown as 'body',
+    });
+  }
+  // temp fix delete
+  XdeleteRecords(ids: number[]): Observable<any> {
+    return this.http.post(`${this.baseUrl}api/data/delete`, ids, {
+      headers: this.headers,
+      // observe: JSON.stringify(ids) as unknown as 'body',
+    });
+  }
+
+/* --- fields --- */
+  getField(id: number): Observable<HeaderData> {
+    return this.http.get<HeaderData>(`${this.baseUrl}api/data/field/${id}`);
+  }
+  addField(name: string, type: string, description: string): Observable<any> {
+    // HandbookDataExt.addField(name, type, description);
+    return this.http.post(`${this.baseUrl}api/data/field`, { name, type, description }, { headers: this.headers })
+      .pipe(
+        tap(_ => console.log('http post data')),
+        // catchError(this.handleError<HandbookRow>('add record', []));
+      );
+  }
+  editField(id: number | null, field: HeaderData): Observable<any> {
+    if (id !== null ) { return this.http.put(`${this.baseUrl}api/data/field/${id}`, field, { headers: this.headers }); }
+    else { return of('field id is null'); }
+  }
+  deleteField(id: number | null): Observable<any> {
+    if (id !== null ) { return this.http.delete(`${this.baseUrl}api/data/field/${id}`, { headers: this.headers }); }
+    else { return of('field id is null'); }
+    // if (id !== null ) { HandbookDataExt.deleteField(id); }
+  }
+
+  private handleError<T>(operation = 'operation', result: T): (err: any) => Observable<T>  {
+    console.log('handle T'); // исполняется сразу при передаче функции как параметра
+    return (err: any): Observable<T> => {
+      console.log(`${operation} failed: ${err.toString()}`);
+      return of(result as T);
+    };
   }
   constructor(private http: HttpClient) {}
 }

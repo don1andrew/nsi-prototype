@@ -54,7 +54,7 @@ export class InsuranceTypesComponent implements OnInit {
       this.info = `Всего записей: ${this.filteredData.length}`;
 
       console.log('init insurance');
-      console.log(this.filteredData);
+      // console.log(this.filteredData);
     });
   }
   onApplyFilters(): void {
@@ -139,13 +139,14 @@ export class InsuranceTypesComponent implements OnInit {
   removeRecords(): void {
     const ch = document.querySelectorAll('[type="checkbox"]:checked');
     const rm: number[] = [];
+    this.buttonsDisabled = { edit: true, remove: true };
     ch.forEach(element => {
       rm.push(parseInt(element.id, 10));
     });
-    // this.dataService.deleteRecords(rm);
-    this.ngOnInit();
-    this.buttonsDisabled = { edit: true, remove: true };
-    this.setTablePage(this.tableNav.current);
+    this.dataService.deleteRecords(rm).subscribe(e => {
+      this.ngOnInit();
+      this.setTablePage(this.tableNav.current);
+    });
   }
   onEditClick(): void {
     const ch = document.querySelector('[type="checkbox"]:checked');
@@ -221,10 +222,7 @@ export class InsuranceTypesComponent implements OnInit {
     this.buttonsDisabled.remove = c.length === 0;
   }
   public debug(): void {
-    const d = {};
-    // this.dataService.getDataHttp().subscribe(el => { console.log(el); });
-    // this.dataService.getRecordHttp(1).subscribe(el => console.log(el));
-    // this.dataService.testHttp(0).subscribe(el => console.log(el));
+    this.http.get('http://localhost:3003/api/test').subscribe(d => {});
   }
 
 }
